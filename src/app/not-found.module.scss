@@ -1,0 +1,51 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 70vh;
+	gap: 20px;
+	padding: 0 15px;
+
+	> h1 {
+		font-weight: 800;
+		font-size: 80px;
+		line-height: 100px;
+		color: #0f1113;
+		text-align: center;
+	}
+
+	> h5 {
+		font-weight: 600;
+		font-size: 24px;
+		line-height: 32px;
+		text-align: center;
+	}
+
+	> span {
+		font-size: 14px;
+		line-height: 18px;
+		color: #263141;
+		text-align: center;
+	}
+
+	@media (max-width: 500px) {
+		> h1 {
+			font-size: 40px;
+			line-height: 60px;
+		}
+
+		> span {
+			font-size: 14px;
+			line-height: 18px;
+		}
+
+		> a {
+			margin-top: 0;
+		}
+	}
+
+	> a {
+		margin-top: 20px;
+	}
+}

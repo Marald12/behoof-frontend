@@ -1,7 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-  return (
-    <div>123</div>
-  );
+	return <div>123</div>
 }

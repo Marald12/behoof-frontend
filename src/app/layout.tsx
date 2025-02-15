@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
-import '@/assets/styles/globals.css'
+import '@/assets/styles/globals.scss'
 import Header from '@/widgets/header/Header'
+import Footer from '@/widgets/footer/Footer'
+import Provider from '@/features/provider/Provider'
 
 export const metadata: Metadata = {
 	title: 'Behoof - Лучшие цены в интернет-магазинах ',
@@ -15,8 +17,11 @@ export default function RootLayout({
 	return (
 		<html lang='ru'>
 			<body>
-				<Header />
-				<main>{children}</main>
+				<Provider>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</Provider>
 			</body>
 		</html>
 	)

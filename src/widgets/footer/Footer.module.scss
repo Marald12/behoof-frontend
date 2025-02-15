@@ -1,0 +1,48 @@
+.footer {
+	flex-shrink: 0;
+	background: #f2f5f9;
+	padding: 45px 0;
+
+	> div {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 15px;
+		flex-wrap: wrap;
+	}
+
+	.copyright {
+		max-width: 1440px;
+		margin: 41px auto 0 auto;
+		line-height: 24px;
+		color: #7e8794;
+	}
+
+	.column__logo {
+		.column__logo_span {
+			margin: 20px 0;
+			line-height: 24px;
+			color: #a1abb9;
+		}
+
+		.column__logo_links {
+			display: flex;
+			gap: 22px;
+		}
+	}
+
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: 21px;
+
+		> span {
+			line-height: 24px;
+			color: #a1abb9;
+		}
+
+		> a {
+			line-height: 24px;
+			color: #263141;
+		}
+	}
+}
