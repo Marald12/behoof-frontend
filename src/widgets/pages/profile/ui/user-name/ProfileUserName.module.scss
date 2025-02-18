@@ -1,2 +1,44 @@
 .username {
+	display: flex;
+	align-items: center;
+	margin-top: 32px;
+	gap: 24px;
+
+	@media (max-width: 734px) {
+		justify-content: space-between;
+		gap: 0;
+	}
+
+	> h1 {
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 58px;
+		color: #263141;
+
+		@media (max-width: 480px) {
+			font-size: 20px;
+			line-height: 28px;
+		}
+	}
+
+	> button {
+		min-width: 40px;
+		min-height: 40px;
+	}
+
+	> input {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 58px;
+		color: #263141;
+		max-width: 300px;
+		background: none;
+		border: none;
+		outline: none;
+
+		&:focus {
+			border-bottom: 1px solid #263141;
+		}
+	}
 }

@@ -15,18 +15,27 @@ import { useRouter } from 'next/navigation'
 const LoginForm: FC = () => {
 	const router = useRouter()
 	const queryClient = useQueryClient()
-	const { register, handleSubmit, formState } = useForm<ILoginForm>()
-	const { mutate } = useMutation({
+	const { register, handleSubmit, formState } = useForm<ILoginForm>({
+		mode: 'onBlur'
+	})
+	const {
+		mutate,
+		data: queryData,
+		error,
+		isError
+	} = useMutation({
 		mutationKey: ['login'],
 		mutationFn: async (data: ILoginForm) =>
 			authService.login(data.email, data.password),
-		onSuccess: async () => {
+		onSuccess: async data => {
 			await queryClient.invalidateQueries({
 				queryKey: ['profile']
 			})
-			toast.success('Вы успешно вошли в аккаунт.')
-			router.push('/')
-			router.refresh()
+			if (data.data) {
+				toast.success('Вы успешно вошли в аккаунт.')
+				router.push('/')
+				router.refresh()
+			}
 		}
 	})
 	const submitHandler = (data: ILoginForm) => {

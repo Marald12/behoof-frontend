@@ -13,7 +13,6 @@ const ProfileLink: FC = () => {
 	})
 
 	if (data) {
-		// @ts-ignore
 		if (data.errors?.length > 0)
 			return (
 				<Link href='/login'>

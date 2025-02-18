@@ -1,19 +1,18 @@
 'use client'
-import { useQuery } from '@tanstack/react-query'
-import { request } from 'graphql-request'
-import { baseUrl } from '@/shared/utils/baseUrl'
-import { getCategoriesForMenu as schema } from '@/api/category/category.schemas'
-import { toast } from 'react-toastify'
+import { getCategoriesForMenu } from '@/api/category/category.schemas'
+import { axiosMain } from '@/shared/utils/axios-main'
+import { GetCategoriesForMenuQuery } from '@/shared/types/graphql'
+import { IApi } from '@/api/api.type'
 
 export const categoryService = {
-	getForMenu(tag: string, variables?: Object) {
-		const query = useQuery({
-			queryKey: [tag],
-			queryFn: async () => request(baseUrl, schema, variables)
-		})
+	async getForMenu() {
+		const request = await axiosMain().post<IApi<GetCategoriesForMenuQuery>>(
+			'',
+			{
+				query: getCategoriesForMenu
+			}
+		)
 
-		if (query.isError) toast.error(query.error.message)
-
-		return query
+		return request.data
 	}
 }

@@ -1,27 +1,18 @@
-import axios from 'axios'
-import { baseUrl } from '@/shared/utils/baseUrl'
 import { loginSchema } from '@/api/auth/schemas/login.schema'
 import { LoginUserMutation } from '@/shared/types/graphql'
 import { toast } from 'react-toastify'
+import { axiosMain } from '@/shared/utils/axios-main'
+import { IApi } from '@/api/api.type'
 
 export const authService = {
 	async login(email: string, password: string) {
-		const request = await axios.post<LoginUserMutation>(
-			baseUrl,
-			{
-				query: loginSchema,
-				variables: {
-					email: String(email),
-					password: String(password)
-				}
-			},
-			{
-				headers: {
-					'Content-Type': 'application/json' // Important for GraphQL APIs
-				},
-				withCredentials: true
+		const request = await axiosMain().post<IApi<LoginUserMutation>>('', {
+			query: loginSchema,
+			variables: {
+				email: String(email),
+				password: String(password)
 			}
-		)
+		})
 
 		// @ts-ignore
 		if (request.data.errors) {

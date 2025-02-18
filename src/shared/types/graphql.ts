@@ -871,7 +871,16 @@ export type GetCategoriesForMenuQuery = { __typename?: 'Query', getCategoriesFor
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string } };
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string } };
+
+export type UpdateUserMutationVariables = Exact<{
+  country?: InputMaybe<Scalars['String']['input']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', name: string, country: string, city: string } };
 
 
 export const LoginUserDocument = gql`
@@ -905,6 +914,17 @@ export const GetProfileDocument = gql`
     id
     email
     name
+    city
+    country
+  }
+}
+    `;
+export const UpdateUserDocument = gql`
+    mutation updateUser($country: String, $city: String, $name: String) {
+  updateUser(body: {country: $country, city: $city, name: $name}) {
+    name
+    country
+    city
   }
 }
     `;
@@ -924,6 +944,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getProfile(variables?: GetProfileQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProfileQuery>(GetProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfile', 'query', variables);
+    },
+    updateUser(variables?: UpdateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserMutation>(UpdateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateUser', 'mutation', variables);
     }
   };
 }

@@ -6,6 +6,8 @@ export const profileSchema = gql`
 			id
 			email
 			name
+			city
+			country
 		}
 	}
 `
