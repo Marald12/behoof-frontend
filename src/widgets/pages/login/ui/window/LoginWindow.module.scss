@@ -1,0 +1,47 @@
+.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 55vh;
+
+	&__container {
+		display: flex;
+
+		&_column_link {
+			padding: 48px;
+			max-width: 50%;
+			background: #ff4d4d;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			color: #fff;
+			border-radius: 10px 0 0 10px;
+
+			> span {
+				font-weight: 600;
+				font-size: 24px;
+				line-height: 32px;
+			}
+
+			> p {
+				line-height: 24px;
+				max-width: 381px;
+			}
+		}
+
+		&_column_form {
+			background: #f2f5f9;
+			width: 50%;
+			min-height: 100%;
+			padding: 48px;
+			border-radius: 0 10px 10px 0;
+
+			> span {
+				font-weight: 600;
+				font-size: 24px;
+				line-height: 32px;
+				color: #263141;
+			}
+		}
+	}
+}

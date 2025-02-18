@@ -3,6 +3,7 @@ import '@/assets/styles/globals.scss'
 import Header from '@/widgets/header/Header'
 import Footer from '@/widgets/footer/Footer'
 import Provider from '@/features/provider/Provider'
+import { ToastContainer } from 'react-toastify'
 
 export const metadata: Metadata = {
 	title: 'Behoof - Лучшие цены в интернет-магазинах ',
@@ -21,6 +22,7 @@ export default function RootLayout({
 					<Header />
 					<main>{children}</main>
 					<Footer />
+					<ToastContainer position='top-right' className='toast__custom' />
 				</Provider>
 			</body>
 		</html>

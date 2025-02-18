@@ -1,0 +1,20 @@
+.nav {
+	display: flex;
+	gap: 12px;
+
+	> a {
+		line-height: 20px;
+		color: #a1abb9;
+
+		&:not(:first-child) {
+			&::before {
+				content: '/';
+				margin-right: 12px;
+			}
+		}
+
+		&:last-child {
+			color: #0f1113;
+		}
+	}
+}

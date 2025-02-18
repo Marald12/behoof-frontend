@@ -1,2 +1,1 @@
-export const baseUrl =
-	process.env.API_URL || 'https://behoof.up.railway.app/graphql'
+export const baseUrl = process.env.API_URL || 'http://localhost:4002/graphql'

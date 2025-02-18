@@ -1,0 +1,21 @@
+.button {
+	padding: 16px 20px;
+	border-radius: 8px;
+	background: #ffffff;
+	border: none;
+	color: #2b3a4e;
+	font-family: 'Inter', sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	text-wrap: nowrap;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
