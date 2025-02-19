@@ -1,0 +1,31 @@
+.country {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 0;
+	border-top: 1px solid #dfe4ea;
+	border-bottom: 1px solid #dfe4ea;
+	cursor: pointer;
+
+	.country__title {
+		display: flex;
+		align-items: center;
+
+		> span,
+		.loader {
+			margin-left: 15px;
+		}
+
+		> span {
+			font-family: 'SF UI Display', sans-serif;
+			font-size: 16px;
+			line-height: 20px;
+			color: #2b3a4e;
+		}
+	}
+	> button {
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+}

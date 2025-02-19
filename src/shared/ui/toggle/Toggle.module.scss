@@ -1,0 +1,57 @@
+.toggle {
+	display: flex;
+	align-items: center;
+
+	> input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	> span {
+		width: 45px;
+		height: 30px;
+		border-radius: 15px;
+		background: #4f6786;
+		cursor: pointer;
+		transition: background 0.3s ease-in-out;
+
+		&::before {
+			content: '';
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background: #fff;
+			border-radius: 50%;
+			margin-top: 5px;
+			margin-left: 5px;
+			transition: all 0.3s ease-in-out;
+		}
+	}
+
+	> input:checked + span {
+		background-color: #ff4d4d;
+	}
+
+	> input:checked + span::before {
+		margin-left: 20px;
+	}
+}
+
+.wrapper {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+
+	> span {
+		font-family: 'SF UI Display', sans-serif;
+		font-size: 16px;
+		line-height: 20px;
+		color: #4f6786;
+		transition: 0.3s ease-in-out;
+
+		&.active {
+			color: #2b3a4e;
+		}
+	}
+}

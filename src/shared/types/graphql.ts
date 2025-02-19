@@ -868,15 +868,18 @@ export type GetCategoriesForMenuQueryVariables = Exact<{ [key: string]: never; }
 
 export type GetCategoriesForMenuQuery = { __typename?: 'Query', getCategoriesForMenu: Array<{ __typename?: 'Category', id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string, products?: Array<{ __typename?: 'Product', id: string, title: string }> | null }> | null }> };
 
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: string };
+
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string } };
 
 export type UpdateUserMutationVariables = Exact<{
-  country?: InputMaybe<Scalars['String']['input']>;
-  city?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  body: UpdateUserDto;
 }>;
 
 
@@ -908,6 +911,11 @@ export const GetCategoriesForMenuDocument = gql`
   }
 }
     `;
+export const LogoutDocument = gql`
+    mutation logout {
+  logout
+}
+    `;
 export const GetProfileDocument = gql`
     query getProfile {
   getProfile {
@@ -920,8 +928,8 @@ export const GetProfileDocument = gql`
 }
     `;
 export const UpdateUserDocument = gql`
-    mutation updateUser($country: String, $city: String, $name: String) {
-  updateUser(body: {country: $country, city: $city, name: $name}) {
+    mutation updateUser($body: UpdateUserDto!) {
+  updateUser(body: $body) {
     name
     country
     city
@@ -942,10 +950,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getCategoriesForMenu(variables?: GetCategoriesForMenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCategoriesForMenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCategoriesForMenuQuery>(GetCategoriesForMenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCategoriesForMenu', 'query', variables);
     },
+    logout(variables?: LogoutMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LogoutMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LogoutMutation>(LogoutDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'logout', 'mutation', variables);
+    },
     getProfile(variables?: GetProfileQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProfileQuery>(GetProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfile', 'query', variables);
     },
-    updateUser(variables?: UpdateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserMutation> {
+    updateUser(variables: UpdateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserMutation>(UpdateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateUser', 'mutation', variables);
     }
   };

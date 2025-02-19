@@ -2,10 +2,15 @@
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { axiosMain } from '@/shared/utils/axios-main'
 import { profileSchema } from '@/api/user/schemas/profile.schema'
-import { GetProfileQuery, UpdateUserMutation } from '@/shared/types/graphql'
+import {
+	GetProfileQuery,
+	LogoutMutation,
+	UpdateUserMutation
+} from '@/shared/types/graphql'
 import { IApi } from '@/api/api.type'
 import { updateUserSchema } from '@/api/user/schemas/update-user.schema'
 import { toast } from 'react-toastify'
+import { logoutSchema } from '@/api/user/schemas/logout.schema'
 
 export const userService = {
 	async fetchProfile(cookiesHeader?: RequestCookie) {
@@ -22,6 +27,15 @@ export const userService = {
 		const request = await axiosMain().post<IApi<UpdateUserMutation>>('', {
 			query: updateUserSchema,
 			variables: { body: data }
+		})
+
+		if (request.data.errors) toast.error(request.data.errors[0].message)
+
+		return request.data
+	},
+	async logout() {
+		const request = await axiosMain().post<IApi<LogoutMutation>>('', {
+			query: logoutSchema
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
