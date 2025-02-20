@@ -1,4 +1,4 @@
-.login {
+.register {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -11,8 +11,8 @@
 			flex-direction: column;
 			width: 100%;
 
-			.login__container_column_link,
-			.login__container_column_form {
+			.register__container_column_link,
+			.register__container_column_form {
 				max-width: 100%;
 				width: 100%;
 			}

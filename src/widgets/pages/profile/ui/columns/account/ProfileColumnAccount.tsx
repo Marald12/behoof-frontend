@@ -1,7 +1,6 @@
 'use client'
 import React, { FC } from 'react'
 import styles from './ProfileColumnAccount.module.scss'
-import Link from 'next/link'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { userService } from '@/api/user/user.service'
 import { useRouter } from 'next/navigation'
@@ -24,15 +23,30 @@ const ProfileColumnAccount: FC = () => {
 			}
 		}
 	})
+	const { mutate: mutateResetPassword, isPending } = useMutation({
+		mutationKey: ['reset-password'],
+		mutationFn: () => userService.createTokenAndSendEmail(),
+		onSuccess: async data => {
+			if (data.data) {
+				toast.success('Ссылка на смену пароля отправлена вам на почту.')
+			}
+		}
+	})
+
+	const reloadProfileClickHandler = async () => {
+		await queryClient.invalidateQueries({
+			queryKey: ['profile']
+		})
+	}
 
 	return (
 		<div className={styles.column}>
 			<h4>Ваш аккаунт</h4>
-			<div>
-				<Link href='/profile/reset-password'>Сбросить пароль</Link>
+			<div onClick={() => !isPending && mutateResetPassword()}>
+				Сбросить пароль
 			</div>
 			<div onClick={() => mutate()}>Выйти</div>
-			<div>Обновить профиль</div>
+			<div onClick={reloadProfileClickHandler}>Обновить профиль</div>
 		</div>
 	)
 }

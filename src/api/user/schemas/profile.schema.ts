@@ -8,6 +8,11 @@ export const profileSchema = gql`
 			name
 			city
 			country
+			questions {
+				id
+				question
+				createdAt
+			}
 		}
 	}
 `

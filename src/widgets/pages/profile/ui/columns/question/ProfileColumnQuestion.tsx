@@ -1,31 +1,29 @@
-import React, { FC } from 'react'
-import styles from './ProfileColumnQuestion.module.scss'
-import { IoMdArrowDropright } from 'react-icons/io'
-import { RiUser2Line } from 'react-icons/ri'
-import ButtonMain from '@/shared/ui/buttons/main/ButtonMain'
+'use client'
+import React, { FC, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { userService } from '@/api/user/user.service'
+import { QuestionContext } from '@/shared/contexts/questionContext'
+import QuestionDefault from '@/widgets/pages/profile/ui/columns/question/default/QuestionDefault'
+import QuestionQuestions from '@/widgets/pages/profile/ui/columns/question/questions/QuestionQuestions'
+import QuestionSend from '@/widgets/pages/profile/ui/columns/question/send/QuestionSend'
 
 const ProfileColumnQuestion: FC = () => {
+	const [value, setValue] = useState('default')
+	const { data } = useQuery({
+		queryKey: ['profile'],
+		queryFn: async () => userService.fetchProfile()
+	})
+
 	return (
-		<div className={styles.column}>
-			<h4>Поддержка</h4>
-			<div className={styles.questions}>
-				<div className={styles.questions__title}>
-					<RiUser2Line color='#FF4D4D' size={24} />
-					<span>Ваши вопросы</span>
-				</div>
-				<div className={styles.questions__count}>
-					<div className={styles.count}>6</div>
-					<button>
-						<IoMdArrowDropright size={27} color='#aab0b5' />
-					</button>
-				</div>
-			</div>
-			<div className={styles.send__question}>
-				<h5>Есть вопросы?</h5>
-				<p>Напишите нам и мы вам с радостью поможем с любой проблемой.</p>
-			</div>
-			<ButtonMain>Написать в поддержку</ButtonMain>
-		</div>
+		<>
+			{data?.data && (
+				<QuestionContext.Provider value={{ value, setValue }}>
+					{value === 'default' && <QuestionDefault query={data} />}
+					{value === 'questions' && <QuestionQuestions query={data} />}
+					{value === 'send' && <QuestionSend />}
+				</QuestionContext.Provider>
+			)}
+		</>
 	)
 }
 

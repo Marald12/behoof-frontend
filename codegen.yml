@@ -1,4 +1,4 @@
-schema: 'https://behoof.up.railway.app/graphql'  # Укажи свой GraphQL эндпоинт
+schema: 'http://localhost:4002/graphql'  # Укажи свой GraphQL эндпоинт
 documents: ['src/api/**/*.schemas.ts', 'src/api/**/schemas/*.schema.ts']               # Путь к файлам с gql запросами
 generates:
   ./src/shared/types/graphql.ts:

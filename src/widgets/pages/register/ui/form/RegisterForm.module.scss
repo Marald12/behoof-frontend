@@ -1,7 +1,7 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 12px;
 	margin-top: 40px;
 
 	&__buttons {
@@ -10,12 +10,13 @@
 		align-items: center;
 		flex-wrap: wrap;
 
-		@media (max-width: 381px) {
+		@media (max-width: 948px) {
 			justify-content: center;
 
 			> a {
 				margin-top: 15px;
 			}
+
 			> button {
 				width: 100%;
 			}

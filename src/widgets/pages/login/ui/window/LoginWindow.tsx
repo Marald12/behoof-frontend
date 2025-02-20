@@ -19,7 +19,6 @@ const LoginWindow: FC = () => {
 					</Link>
 				</div>
 				<div className={styles.login__container_column_form}>
-					<span>Вход в аккаунт Behoof</span>
 					<LoginForm />
 				</div>
 			</div>

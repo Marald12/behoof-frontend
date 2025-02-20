@@ -337,6 +337,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addProductToFavorite: User;
   changePassword: User;
+  checkToken: Token;
   createArticle: Article;
   createBrand: Brand;
   createCategory: Category;
@@ -365,6 +366,11 @@ export type MutationAddProductToFavoriteArgs = {
 
 export type MutationChangePasswordArgs = {
   password: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+};
+
+
+export type MutationCheckTokenArgs = {
   token: Scalars['String']['input'];
 };
 
@@ -863,10 +869,39 @@ export type LoginUserMutationVariables = Exact<{
 
 export type LoginUserMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, email: string, name: string } };
 
+export type RegisterMutationVariables = Exact<{
+  body: CreateUserDto;
+}>;
+
+
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'User', id: string, email: string, name: string } };
+
 export type GetCategoriesForMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCategoriesForMenuQuery = { __typename?: 'Query', getCategoriesForMenu: Array<{ __typename?: 'Category', id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string, products?: Array<{ __typename?: 'Product', id: string, title: string }> | null }> | null }> };
+
+export type CreateQuestionMutationVariables = Exact<{
+  dto: QuestionDto;
+}>;
+
+
+export type CreateQuestionMutation = { __typename?: 'Mutation', createQuestion: { __typename?: 'Question', id: string, question: string } };
+
+export type ChangePasswordMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'User', id: string, email: string, password: string } };
+
+export type CheckTokenMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+
+export type CheckTokenMutation = { __typename?: 'Mutation', checkToken: { __typename?: 'Token', id: string, token: string, email: string } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -876,7 +911,19 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: string };
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string } };
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null } };
+
+export type CreateTokenAndSendEmailMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CreateTokenAndSendEmailMutation = { __typename?: 'Mutation', createTokenAndSendEmail: { __typename?: 'Token', id: string, token: string, type: TokensType } };
+
+export type FindByEmailAndCreateAndSendEmailMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type FindByEmailAndCreateAndSendEmailMutation = { __typename?: 'Mutation', findByEmailAndCreateAndSendEmail: { __typename?: 'Token', id: string, token: string, type: TokensType } };
 
 export type UpdateUserMutationVariables = Exact<{
   body: UpdateUserDto;
@@ -889,6 +936,15 @@ export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __type
 export const LoginUserDocument = gql`
     mutation loginUser($email: String!, $password: String!) {
   login(body: {email: $email, password: $password}) {
+    id
+    email
+    name
+  }
+}
+    `;
+export const RegisterDocument = gql`
+    mutation register($body: CreateUserDto!) {
+  register(body: $body) {
     id
     email
     name
@@ -911,6 +967,32 @@ export const GetCategoriesForMenuDocument = gql`
   }
 }
     `;
+export const CreateQuestionDocument = gql`
+    mutation createQuestion($dto: QuestionDto!) {
+  createQuestion(dto: $dto) {
+    id
+    question
+  }
+}
+    `;
+export const ChangePasswordDocument = gql`
+    mutation changePassword($token: String!, $password: String!) {
+  changePassword(token: $token, password: $password) {
+    id
+    email
+    password
+  }
+}
+    `;
+export const CheckTokenDocument = gql`
+    mutation checkToken($token: String!) {
+  checkToken(token: $token) {
+    id
+    token
+    email
+  }
+}
+    `;
 export const LogoutDocument = gql`
     mutation logout {
   logout
@@ -924,6 +1006,29 @@ export const GetProfileDocument = gql`
     name
     city
     country
+    questions {
+      id
+      question
+      createdAt
+    }
+  }
+}
+    `;
+export const CreateTokenAndSendEmailDocument = gql`
+    mutation createTokenAndSendEmail {
+  createTokenAndSendEmail {
+    id
+    token
+    type
+  }
+}
+    `;
+export const FindByEmailAndCreateAndSendEmailDocument = gql`
+    mutation findByEmailAndCreateAndSendEmail($email: String!) {
+  findByEmailAndCreateAndSendEmail(email: $email) {
+    id
+    token
+    type
   }
 }
     `;
@@ -947,14 +1052,32 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     loginUser(variables: LoginUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LoginUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LoginUserMutation>(LoginUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'loginUser', 'mutation', variables);
     },
+    register(variables: RegisterMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<RegisterMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RegisterMutation>(RegisterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'register', 'mutation', variables);
+    },
     getCategoriesForMenu(variables?: GetCategoriesForMenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCategoriesForMenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCategoriesForMenuQuery>(GetCategoriesForMenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCategoriesForMenu', 'query', variables);
+    },
+    createQuestion(variables: CreateQuestionMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateQuestionMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateQuestionMutation>(CreateQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createQuestion', 'mutation', variables);
+    },
+    changePassword(variables: ChangePasswordMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ChangePasswordMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ChangePasswordMutation>(ChangePasswordDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'changePassword', 'mutation', variables);
+    },
+    checkToken(variables: CheckTokenMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CheckTokenMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CheckTokenMutation>(CheckTokenDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'checkToken', 'mutation', variables);
     },
     logout(variables?: LogoutMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LogoutMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LogoutMutation>(LogoutDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'logout', 'mutation', variables);
     },
     getProfile(variables?: GetProfileQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProfileQuery>(GetProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfile', 'query', variables);
+    },
+    createTokenAndSendEmail(variables?: CreateTokenAndSendEmailMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateTokenAndSendEmailMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateTokenAndSendEmailMutation>(CreateTokenAndSendEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createTokenAndSendEmail', 'mutation', variables);
+    },
+    findByEmailAndCreateAndSendEmail(variables: FindByEmailAndCreateAndSendEmailMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindByEmailAndCreateAndSendEmailMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindByEmailAndCreateAndSendEmailMutation>(FindByEmailAndCreateAndSendEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findByEmailAndCreateAndSendEmail', 'mutation', variables);
     },
     updateUser(variables: UpdateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserMutation>(UpdateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateUser', 'mutation', variables);

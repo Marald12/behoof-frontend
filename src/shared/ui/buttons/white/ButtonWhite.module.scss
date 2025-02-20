@@ -16,6 +16,10 @@
 	text-wrap: nowrap;
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 0.9;
+	}
+
+	&:disabled {
+		background: #d9d7d7;
 	}
 }

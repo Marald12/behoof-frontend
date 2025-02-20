@@ -4,8 +4,9 @@ import Hydrate from '@/shared/utils/hydrate/Hydrate'
 import { hydrateProfile } from '@/shared/utils/hydrate-profile'
 import ProfileUserName from '@/widgets/pages/profile/ui/user-name/ProfileUserName'
 import ProfileColumns from '@/widgets/pages/profile/ui/columns/ProfileColumns'
+import { NextPage } from 'next'
 
-const ProfilePage = async () => {
+const ProfilePage: NextPage = async () => {
 	const dehydratedState = await hydrateProfile()
 
 	return (

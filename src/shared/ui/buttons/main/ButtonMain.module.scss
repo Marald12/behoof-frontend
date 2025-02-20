@@ -4,7 +4,6 @@
 	background: #ff4d4d;
 	border: none;
 	color: #fff;
-	font-family: 'Inter', sans-serif;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 20px;
@@ -17,5 +16,9 @@
 
 	&:hover {
 		opacity: 0.8;
+	}
+
+	&:disabled {
+		background: #f56c6c;
 	}
 }
