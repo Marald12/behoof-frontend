@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import styles from './ProductCategoryPage.module.scss'
 import Nav from '@/features/nav/Nav'
 import { useParams } from 'next/navigation'
@@ -20,6 +20,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
 import cn from 'classnames'
 import ProductCategoryPortability from '@/widgets/pages/products/category/portability/ProductCategoryPortability'
 import ProductCategoryAnswer from '@/widgets/pages/products/category/answer/ProductCategoryAnswer'
+import ProductItem from '@/shared/ui/components/product-item/ProductItem'
 
 const ProductCategoryPage: FC = () => {
 	const { id } = useParams()
@@ -50,7 +51,8 @@ const ProductCategoryPage: FC = () => {
 				...filterDto
 			})
 	})
-	const [isHidden, setIsHidden] = useState(true)
+	const [isHidden, setIsHidden] = useState(false)
+	const ref = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		queryClient
@@ -59,6 +61,21 @@ const ProductCategoryPage: FC = () => {
 			})
 			.then()
 	}, [filterDto])
+
+	const setHiddenHandler = () => {
+		if (ref.current) {
+			if (isHidden) {
+				ref.current.style.transform = 'scale(0)'
+				setTimeout(() => setIsHidden(false), 300)
+			}
+		}
+		if (!isHidden) {
+			setTimeout(() => {
+				if (ref.current) ref.current.style.transform = 'scale(1)'
+			}, 1)
+			setIsHidden(true)
+		}
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -73,19 +90,19 @@ const ProductCategoryPage: FC = () => {
 								<TiArrowSortedUp
 									size={20}
 									color='#2B3A4E'
-									onClick={() => setIsHidden(prev => !prev)}
+									onClick={setHiddenHandler}
 								/>
 							) : (
 								<TiArrowSortedDown
 									size={20}
 									color='#2B3A4E'
-									onClick={() => setIsHidden(prev => !prev)}
+									onClick={setHiddenHandler}
 								/>
 							)}
 						</div>
 					</div>
 					{isHidden && (
-						<div className={cn(styles.columns, isHidden && styles.active)}>
+						<div className={cn(styles.columns)} ref={ref}>
 							<div className={styles.column}>
 								<ProductCategoryBrands
 									filterDto={filterDto}
@@ -129,7 +146,7 @@ const ProductCategoryPage: FC = () => {
 					{productsData?.data &&
 						!isFetching &&
 						productsData.data.filterProducts.map(item => (
-							<div key={item.id}>{item.title}</div>
+							<ProductItem key={item.id} product={item} />
 						))}
 					{(productIsLoading || isFetching || isLoading) && <Loader />}
 					{!productsData?.data?.filterProducts.length && (

@@ -1,4 +1,6 @@
 .wrapper > div {
+	overflow: hidden;
+
 	> h4 {
 		font-family: 'Inter', sans-serif;
 		font-weight: 700;
@@ -48,6 +50,8 @@
 			justify-content: space-between;
 			margin-top: 32px;
 			flex-wrap: wrap;
+			transition: all 0.3s ease-in-out;
+			transform: scale(0);
 
 			@media (max-width: 600px) {
 				gap: 5px;
@@ -84,5 +88,12 @@
 				}
 			}
 		}
+	}
+
+	.products {
+		margin-top: 52px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 }

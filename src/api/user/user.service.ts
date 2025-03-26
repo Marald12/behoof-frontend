@@ -94,7 +94,7 @@ export const userService = {
 			return request.data
 		} catch (e) {
 			//@ts-ignore
-			console.log('hyyyi', e.response.data)
+			console.log(e.response.data)
 		}
 	}
 }

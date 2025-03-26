@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
 	images: {
 		remotePatterns: [
 			{
-				protocol: 'https',
-				hostname: 'behoof.up.railway.app',
+				protocol: 'http',
+				hostname: 'localhost',
 				port: '4002'
 			}
 		]
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: '/uploads/:path*',
-				destination: 'https://behoof.up.railway.app/uploads/:path*'
+				destination: 'http://localhost:4002/uploads/:path*'
 			}
 		]
 	}

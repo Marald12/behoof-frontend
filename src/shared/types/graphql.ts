@@ -910,7 +910,7 @@ export type FilterProductsQueryVariables = Exact<{
 }>;
 
 
-export type FilterProductsQuery = { __typename?: 'Query', filterProducts: Array<{ __typename?: 'Product', id: string, title: string }> };
+export type FilterProductsQuery = { __typename?: 'Query', filterProducts: Array<{ __typename?: 'Product', id: string, title: string, description: string, images?: Array<string> | null, price: number, rating: number, characteristics: any, reviews?: Array<{ __typename?: 'Review', id: string }> | null }> };
 
 export type CreateQuestionMutationVariables = Exact<{
   dto: QuestionDto;
@@ -1029,6 +1029,14 @@ export const FilterProductsDocument = gql`
   ) {
     id
     title
+    description
+    images
+    price
+    rating
+    characteristics
+    reviews {
+      id
+    }
   }
 }
     `;

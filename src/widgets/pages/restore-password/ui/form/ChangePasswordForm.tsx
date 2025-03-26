@@ -36,7 +36,6 @@ const ChangePasswordForm: FC = () => {
 
 	const submitHandler = (data: IForm) => {
 		if (params.token) {
-			console.log(params.token, data.password)
 			mutate({ token: params.token, password: data.password })
 		}
 	}

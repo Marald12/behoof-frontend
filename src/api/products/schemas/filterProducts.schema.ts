@@ -25,6 +25,14 @@ export const filterProductsSchema = gql`
 		) {
 			id
 			title
+			description
+			images
+			price
+			rating
+			characteristics
+			reviews {
+				id
+			}
 		}
 	}
 `
