@@ -16,6 +16,10 @@ import ProductCategoryBrands from '@/widgets/pages/products/category/brands/Prod
 import ProductCategoryPrices from '@/widgets/pages/products/category/prices/ProductCategoryPrices'
 import ProductCategoryBattery from '@/widgets/pages/products/category/battery/ProductCategoryBattery'
 import ProductCategoryDisplay from '@/widgets/pages/products/category/display/ProductCategoryDisplay'
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
+import cn from 'classnames'
+import ProductCategoryPortability from '@/widgets/pages/products/category/portability/ProductCategoryPortability'
+import ProductCategoryAnswer from '@/widgets/pages/products/category/answer/ProductCategoryAnswer'
 
 const ProductCategoryPage: FC = () => {
 	const { id } = useParams()
@@ -31,7 +35,9 @@ const ProductCategoryPage: FC = () => {
 		maxPrice: 100000,
 		memory: undefined,
 		minPrice: 0,
-		screen: undefined
+		screen: undefined,
+		portabilityCount: 0,
+		allRating: 0
 	})
 	const {
 		data: productsData,
@@ -44,6 +50,7 @@ const ProductCategoryPage: FC = () => {
 				...filterDto
 			})
 	})
+	const [isHidden, setIsHidden] = useState(true)
 
 	useEffect(() => {
 		queryClient
@@ -59,37 +66,64 @@ const ProductCategoryPage: FC = () => {
 				<Nav links={[{ href: '/products/', title: 'Смартфоны' }]} />
 				<h4>{data?.data && data.data.findByIdCategory.title}</h4>
 				<div className={styles.filter}>
-					<h4>Фильтрация</h4>
-					<div className={styles.columns}>
-						<div className={styles.column}>
-							<ProductCategoryBrands
-								filterDto={filterDto}
-								setFilterDto={setFilterDto}
-							/>
-							<ProductCategoryPrices
-								filterDto={filterDto}
-								setFilterDto={setFilterDto}
-							/>
-							<div className={styles.additionally}>
-								<h4>Дополнительно</h4>
-								<Toggle label='Есть' />
-								<Toggle label='Есть' />
-								<Toggle label='Есть' />
-							</div>
-						</div>
-						<div className={styles.column}>
-							<ProductCategoryBattery
-								setFilterDto={setFilterDto}
-								filterDto={filterDto}
-							/>
-						</div>
-						<div className={styles.column}>
-							<ProductCategoryDisplay
-								setFilterDto={setFilterDto}
-								filterDto={filterDto}
-							/>
+					<div className={styles.filter__title}>
+						<h4>Фильтрация</h4>
+						<div>
+							{isHidden ? (
+								<TiArrowSortedUp
+									size={20}
+									color='#2B3A4E'
+									onClick={() => setIsHidden(prev => !prev)}
+								/>
+							) : (
+								<TiArrowSortedDown
+									size={20}
+									color='#2B3A4E'
+									onClick={() => setIsHidden(prev => !prev)}
+								/>
+							)}
 						</div>
 					</div>
+					{isHidden && (
+						<div className={cn(styles.columns, isHidden && styles.active)}>
+							<div className={styles.column}>
+								<ProductCategoryBrands
+									filterDto={filterDto}
+									setFilterDto={setFilterDto}
+								/>
+								<ProductCategoryPrices
+									filterDto={filterDto}
+									setFilterDto={setFilterDto}
+								/>
+								<div className={styles.additionally}>
+									<h4>Дополнительно</h4>
+									<Toggle label='Есть' />
+									<Toggle label='Есть' />
+									<Toggle label='Есть' />
+								</div>
+							</div>
+							<div className={styles.column}>
+								<ProductCategoryBattery
+									setFilterDto={setFilterDto}
+									filterDto={filterDto}
+								/>
+								<ProductCategoryPortability
+									setFilterDto={setFilterDto}
+									filterDto={filterDto}
+								/>
+							</div>
+							<div className={styles.column}>
+								<ProductCategoryDisplay
+									setFilterDto={setFilterDto}
+									filterDto={filterDto}
+								/>
+								<ProductCategoryAnswer
+									setFilterDto={setFilterDto}
+									filterDto={filterDto}
+								/>
+							</div>
+						</div>
+					)}
 				</div>
 				<div className={styles.products}>
 					{productsData?.data &&

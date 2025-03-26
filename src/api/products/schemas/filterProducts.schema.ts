@@ -10,6 +10,7 @@ export const filterProductsSchema = gql`
 		$screen: Float
 		$category: String
 		$allRating: Float
+		$portabilityCount: Float
 	) {
 		filterProducts(
 			brands: $brands
@@ -20,6 +21,7 @@ export const filterProductsSchema = gql`
 			screen: $screen
 			category: $category
 			allRating: $allRating
+			portabilityCount: $portabilityCount
 		) {
 			id
 			title

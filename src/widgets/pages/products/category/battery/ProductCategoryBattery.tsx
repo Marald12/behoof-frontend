@@ -15,6 +15,7 @@ const ProductCategoryBattery: FC<IProductCategoryInterfaceProps> = ({
 	return (
 		<FilterBlock title='Батарея'>
 			<div className='filter__rating'>
+				<span>Состояние</span>
 				<div className={'filter__rating_blocks'}>
 					{array.map(i => (
 						<div

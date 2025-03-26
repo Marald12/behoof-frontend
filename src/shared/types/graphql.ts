@@ -569,23 +569,15 @@ export type Query = {
 
 
 export type QueryFilterProductsArgs = {
-  answerCount?: InputMaybe<Scalars['Float']['input']>;
-  batteryCount?: InputMaybe<Scalars['Float']['input']>;
+  allRating?: InputMaybe<Scalars['Float']['input']>;
+  battery?: InputMaybe<Scalars['Float']['input']>;
   brands?: InputMaybe<Array<Scalars['String']['input']>>;
-  camera?: InputMaybe<Scalars['Float']['input']>;
-  cameraCount?: InputMaybe<Scalars['Float']['input']>;
   category?: InputMaybe<Scalars['String']['input']>;
-  chargingType?: InputMaybe<Scalars['String']['input']>;
-  densityScreen?: InputMaybe<Scalars['Float']['input']>;
-  designCount?: InputMaybe<Scalars['Float']['input']>;
-  displayCount?: InputMaybe<Scalars['Float']['input']>;
   maxPrice?: InputMaybe<Scalars['Float']['input']>;
   memory?: InputMaybe<Scalars['Float']['input']>;
   minPrice?: InputMaybe<Scalars['Float']['input']>;
-  os?: InputMaybe<Scalars['String']['input']>;
   portabilityCount?: InputMaybe<Scalars['Float']['input']>;
-  screenDiagonal?: InputMaybe<Scalars['Float']['input']>;
-  screenType?: InputMaybe<Scalars['String']['input']>;
+  screen?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -909,20 +901,12 @@ export type FilterProductsQueryVariables = Exact<{
   brands?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
   minPrice?: InputMaybe<Scalars['Float']['input']>;
   maxPrice?: InputMaybe<Scalars['Float']['input']>;
-  os?: InputMaybe<Scalars['String']['input']>;
-  camera?: InputMaybe<Scalars['Float']['input']>;
+  battery?: InputMaybe<Scalars['Float']['input']>;
   memory?: InputMaybe<Scalars['Float']['input']>;
-  screenDiagonal?: InputMaybe<Scalars['Float']['input']>;
-  screenType?: InputMaybe<Scalars['String']['input']>;
-  densityScreen?: InputMaybe<Scalars['Float']['input']>;
-  answerCount?: InputMaybe<Scalars['Float']['input']>;
-  cameraCount?: InputMaybe<Scalars['Float']['input']>;
-  designCount?: InputMaybe<Scalars['Float']['input']>;
-  batteryCount?: InputMaybe<Scalars['Float']['input']>;
-  chargingType?: InputMaybe<Scalars['String']['input']>;
-  displayCount?: InputMaybe<Scalars['Float']['input']>;
-  portabilityCount?: InputMaybe<Scalars['Float']['input']>;
+  screen?: InputMaybe<Scalars['Float']['input']>;
   category?: InputMaybe<Scalars['String']['input']>;
+  allRating?: InputMaybe<Scalars['Float']['input']>;
+  portabilityCount?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
@@ -1031,25 +1015,17 @@ export const FindByIdCategoryDocument = gql`
 }
     `;
 export const FilterProductsDocument = gql`
-    query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $os: String, $camera: Float, $memory: Float, $screenDiagonal: Float, $screenType: String, $densityScreen: Float, $answerCount: Float, $cameraCount: Float, $designCount: Float, $batteryCount: Float, $chargingType: String, $displayCount: Float, $portabilityCount: Float, $category: String) {
+    query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $battery: Float, $memory: Float, $screen: Float, $category: String, $allRating: Float, $portabilityCount: Float) {
   filterProducts(
     brands: $brands
     minPrice: $minPrice
     maxPrice: $maxPrice
-    os: $os
-    camera: $camera
+    battery: $battery
     memory: $memory
-    screenDiagonal: $screenDiagonal
-    screenType: $screenType
-    densityScreen: $densityScreen
-    answerCount: $answerCount
-    cameraCount: $cameraCount
-    designCount: $designCount
-    batteryCount: $batteryCount
-    chargingType: $chargingType
-    displayCount: $displayCount
-    portabilityCount: $portabilityCount
+    screen: $screen
     category: $category
+    allRating: $allRating
+    portabilityCount: $portabilityCount
   ) {
     id
     title

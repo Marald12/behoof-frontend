@@ -12,6 +12,7 @@ export type FilterProductsParams = {
 	screen?: number
 	category?: string
 	allRating?: number
+	portabilityCount?: number
 }
 
 export const productService = {
