@@ -25,7 +25,7 @@ const HeaderSearch: FC = () => {
 					</div>
 				</div>
 			</div>
-			<Catalog isShow={isShow} ref={ref} />
+			<Catalog isShow={isShow} ref={ref} setIsShow={setIsShow} />
 		</>
 	)
 }

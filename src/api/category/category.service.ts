@@ -1,7 +1,13 @@
 'use client'
-import { getCategoriesForMenu } from '@/api/category/category.schemas'
+import {
+	findByIdCategorySchema,
+	getCategoriesForMenu
+} from '@/api/category/category.schemas'
 import { axiosMain } from '@/shared/utils/axios-main'
-import { GetCategoriesForMenuQuery } from '@/shared/types/graphql'
+import {
+	FindByIdCategoryQuery,
+	GetCategoriesForMenuQuery
+} from '@/shared/types/graphql'
 import { IApi } from '@/api/api.type'
 
 export const categoryService = {
@@ -12,6 +18,14 @@ export const categoryService = {
 				query: getCategoriesForMenu
 			}
 		)
+
+		return request.data
+	},
+	async findByIdCategory(id: string) {
+		const request = await axiosMain().post<IApi<FindByIdCategoryQuery>>('', {
+			query: findByIdCategorySchema,
+			variables: { id }
+		})
 
 		return request.data
 	}

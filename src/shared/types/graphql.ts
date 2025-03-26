@@ -202,6 +202,7 @@ export type CategoryCountAggregate = {
 };
 
 export type CategoryDto = {
+  banner: Scalars['String']['input'];
   title: Scalars['String']['input'];
 };
 
@@ -568,12 +569,23 @@ export type Query = {
 
 
 export type QueryFilterProductsArgs = {
-  battery?: InputMaybe<Scalars['Float']['input']>;
+  answerCount?: InputMaybe<Scalars['Float']['input']>;
+  batteryCount?: InputMaybe<Scalars['Float']['input']>;
   brands?: InputMaybe<Array<Scalars['String']['input']>>;
+  camera?: InputMaybe<Scalars['Float']['input']>;
+  cameraCount?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  chargingType?: InputMaybe<Scalars['String']['input']>;
+  densityScreen?: InputMaybe<Scalars['Float']['input']>;
+  designCount?: InputMaybe<Scalars['Float']['input']>;
+  displayCount?: InputMaybe<Scalars['Float']['input']>;
   maxPrice?: InputMaybe<Scalars['Float']['input']>;
   memory?: InputMaybe<Scalars['Float']['input']>;
   minPrice?: InputMaybe<Scalars['Float']['input']>;
-  screen?: InputMaybe<Scalars['Float']['input']>;
+  os?: InputMaybe<Scalars['String']['input']>;
+  portabilityCount?: InputMaybe<Scalars['Float']['input']>;
+  screenDiagonal?: InputMaybe<Scalars['Float']['input']>;
+  screenType?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -876,10 +888,45 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'User', id: string, email: string, name: string } };
 
+export type FindAllBrandsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllBrandsQuery = { __typename?: 'Query', findAllBrands: Array<{ __typename?: 'Brand', id: string, title: string }> };
+
 export type GetCategoriesForMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCategoriesForMenuQuery = { __typename?: 'Query', getCategoriesForMenu: Array<{ __typename?: 'Category', id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string, products?: Array<{ __typename?: 'Product', id: string, title: string }> | null }> | null }> };
+
+export type FindByIdCategoryQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindByIdCategoryQuery = { __typename?: 'Query', findByIdCategory: { __typename?: 'Category', id: string, title: string } };
+
+export type FilterProductsQueryVariables = Exact<{
+  brands?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  minPrice?: InputMaybe<Scalars['Float']['input']>;
+  maxPrice?: InputMaybe<Scalars['Float']['input']>;
+  os?: InputMaybe<Scalars['String']['input']>;
+  camera?: InputMaybe<Scalars['Float']['input']>;
+  memory?: InputMaybe<Scalars['Float']['input']>;
+  screenDiagonal?: InputMaybe<Scalars['Float']['input']>;
+  screenType?: InputMaybe<Scalars['String']['input']>;
+  densityScreen?: InputMaybe<Scalars['Float']['input']>;
+  answerCount?: InputMaybe<Scalars['Float']['input']>;
+  cameraCount?: InputMaybe<Scalars['Float']['input']>;
+  designCount?: InputMaybe<Scalars['Float']['input']>;
+  batteryCount?: InputMaybe<Scalars['Float']['input']>;
+  chargingType?: InputMaybe<Scalars['String']['input']>;
+  displayCount?: InputMaybe<Scalars['Float']['input']>;
+  portabilityCount?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FilterProductsQuery = { __typename?: 'Query', filterProducts: Array<{ __typename?: 'Product', id: string, title: string }> };
 
 export type CreateQuestionMutationVariables = Exact<{
   dto: QuestionDto;
@@ -951,6 +998,14 @@ export const RegisterDocument = gql`
   }
 }
     `;
+export const FindAllBrandsDocument = gql`
+    query findAllBrands {
+  findAllBrands {
+    id
+    title
+  }
+}
+    `;
 export const GetCategoriesForMenuDocument = gql`
     query getCategoriesForMenu {
   getCategoriesForMenu {
@@ -964,6 +1019,40 @@ export const GetCategoriesForMenuDocument = gql`
         title
       }
     }
+  }
+}
+    `;
+export const FindByIdCategoryDocument = gql`
+    query findByIdCategory($id: String!) {
+  findByIdCategory(id: $id) {
+    id
+    title
+  }
+}
+    `;
+export const FilterProductsDocument = gql`
+    query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $os: String, $camera: Float, $memory: Float, $screenDiagonal: Float, $screenType: String, $densityScreen: Float, $answerCount: Float, $cameraCount: Float, $designCount: Float, $batteryCount: Float, $chargingType: String, $displayCount: Float, $portabilityCount: Float, $category: String) {
+  filterProducts(
+    brands: $brands
+    minPrice: $minPrice
+    maxPrice: $maxPrice
+    os: $os
+    camera: $camera
+    memory: $memory
+    screenDiagonal: $screenDiagonal
+    screenType: $screenType
+    densityScreen: $densityScreen
+    answerCount: $answerCount
+    cameraCount: $cameraCount
+    designCount: $designCount
+    batteryCount: $batteryCount
+    chargingType: $chargingType
+    displayCount: $displayCount
+    portabilityCount: $portabilityCount
+    category: $category
+  ) {
+    id
+    title
   }
 }
     `;
@@ -1055,8 +1144,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     register(variables: RegisterMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<RegisterMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<RegisterMutation>(RegisterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'register', 'mutation', variables);
     },
+    findAllBrands(variables?: FindAllBrandsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllBrandsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindAllBrandsQuery>(FindAllBrandsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllBrands', 'query', variables);
+    },
     getCategoriesForMenu(variables?: GetCategoriesForMenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCategoriesForMenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCategoriesForMenuQuery>(GetCategoriesForMenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCategoriesForMenu', 'query', variables);
+    },
+    findByIdCategory(variables: FindByIdCategoryQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindByIdCategoryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindByIdCategoryQuery>(FindByIdCategoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findByIdCategory', 'query', variables);
+    },
+    filterProducts(variables?: FilterProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FilterProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FilterProductsQuery>(FilterProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'filterProducts', 'query', variables);
     },
     createQuestion(variables: CreateQuestionMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateQuestionMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateQuestionMutation>(CreateQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createQuestion', 'mutation', variables);

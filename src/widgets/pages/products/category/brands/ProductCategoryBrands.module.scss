@@ -1,0 +1,9 @@
+.brand {
+	&__items {
+		display: flex;
+		margin-top: 20px;
+		gap: 5px;
+		max-width: 310px;
+		flex-wrap: wrap;
+	}
+}

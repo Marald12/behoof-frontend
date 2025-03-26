@@ -19,8 +19,11 @@ const ProfileColumnSettings: FC = () => {
 				<div className={styles.column}>
 					<h4>Настройки</h4>
 					<div className={styles.column__triggers}>
-						<Toggle label='Получать пуш уведомления' />
-						<Toggle label='Получать уведомления на электронную почту' />
+						<Toggle label='Получать пуш уведомления' labelIsRight={true} />
+						<Toggle
+							label='Получать уведомления на электронную почту'
+							labelIsRight={true}
+						/>
 					</div>
 					<div className={styles.column__country}>
 						<ProfileSettingsCountry country={data.data.getProfile.country} />

@@ -16,3 +16,12 @@ export const getCategoriesForMenu = gql`
 		}
 	}
 `
+
+export const findByIdCategorySchema = gql`
+	query findByIdCategory($id: String!) {
+		findByIdCategory(id: $id) {
+			id
+			title
+		}
+	}
+`

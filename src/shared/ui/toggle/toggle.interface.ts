@@ -6,4 +6,5 @@ export interface IToggle
 		HTMLInputElement
 	> {
 	label?: string
+	labelIsRight?: boolean
 }

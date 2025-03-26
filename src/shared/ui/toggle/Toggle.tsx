@@ -3,12 +3,15 @@ import styles from './Toggle.module.scss'
 import { IToggle } from '@/shared/ui/toggle/toggle.interface'
 import cn from 'classnames'
 
-const Toggle: FC<IToggle> = ({ label, ...props }) => {
+const Toggle: FC<IToggle> = ({ label, labelIsRight, ...props }) => {
 	if (label) {
 		const [checked, setChecked] = useState(false)
 
 		return (
 			<div className={styles.wrapper}>
+				{!labelIsRight && (
+					<span className={cn(checked && styles.active)}>{label}</span>
+				)}
 				<label className={styles.toggle}>
 					<input
 						type='checkbox'
@@ -18,7 +21,9 @@ const Toggle: FC<IToggle> = ({ label, ...props }) => {
 					/>
 					<span></span>
 				</label>
-				<span className={cn(checked && styles.active)}>{label}</span>
+				{labelIsRight && (
+					<span className={cn(checked && styles.active)}>{label}</span>
+				)}
 			</div>
 		)
 	}

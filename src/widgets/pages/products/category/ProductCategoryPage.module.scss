@@ -1,0 +1,58 @@
+.wrapper > div {
+	> h4 {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 58px;
+		margin: 32px 0;
+		color: #263141;
+	}
+
+	.filter {
+		padding: 42px 40px;
+		background: #f5f7fa;
+		border-radius: 12px;
+		display: flex;
+		flex-direction: column;
+
+		> h4 {
+			font-family: 'Inter', sans-serif;
+			font-weight: 600;
+			font-size: 24px;
+			line-height: 32px;
+		}
+
+		.columns {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 32px;
+
+			.column {
+				display: flex;
+				flex-direction: column;
+				gap: 32px;
+
+				> div {
+					h4 {
+						font-family: 'Inter', sans-serif;
+						font-weight: 600;
+						font-size: 16px;
+						line-height: 20px;
+						color: #263141;
+					}
+				}
+
+				.additionally {
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+
+					> div {
+						display: flex;
+						justify-content: space-between;
+					}
+				}
+			}
+		}
+	}
+}
