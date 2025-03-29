@@ -11,6 +11,8 @@ export const filterProductsSchema = gql`
 		$category: String
 		$allRating: Float
 		$portabilityCount: Float
+		$skip: Float
+		$take: Float
 	) {
 		filterProducts(
 			brands: $brands
@@ -22,6 +24,8 @@ export const filterProductsSchema = gql`
 			category: $category
 			allRating: $allRating
 			portabilityCount: $portabilityCount
+			skip: $skip
+			take: $take
 		) {
 			id
 			title
@@ -32,6 +36,9 @@ export const filterProductsSchema = gql`
 			characteristics
 			reviews {
 				id
+			}
+			brand {
+				title
 			}
 		}
 	}

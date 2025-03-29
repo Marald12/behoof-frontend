@@ -2,7 +2,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import styles from './ProductCategoryPage.module.scss'
 import Nav from '@/features/nav/Nav'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { categoryService } from '@/api/category/category.service'
 import {
@@ -21,10 +21,13 @@ import cn from 'classnames'
 import ProductCategoryPortability from '@/widgets/pages/products/category/portability/ProductCategoryPortability'
 import ProductCategoryAnswer from '@/widgets/pages/products/category/answer/ProductCategoryAnswer'
 import ProductItem from '@/shared/ui/components/product-item/ProductItem'
+import Pagination from '@/widgets/pages/products/category/pagination/Pagination'
 
 const ProductCategoryPage: FC = () => {
 	const { id } = useParams()
 	const queryClient = useQueryClient()
+	const searchParams = useSearchParams()
+	const defaultBrandId = searchParams.get('brand')
 	const { data, isLoading } = useQuery({
 		queryKey: ['category'],
 		queryFn: () => categoryService.findByIdCategory(String(id))
@@ -38,7 +41,9 @@ const ProductCategoryPage: FC = () => {
 		minPrice: 0,
 		screen: undefined,
 		portabilityCount: 0,
-		allRating: 0
+		allRating: 0,
+		take: 2,
+		skip: 0
 	})
 	const {
 		data: productsData,
@@ -62,6 +67,15 @@ const ProductCategoryPage: FC = () => {
 			.then()
 	}, [filterDto])
 
+	useEffect(() => {
+		if (defaultBrandId) {
+			setFilterDto(prev => ({
+				...prev,
+				brands: [defaultBrandId]
+			}))
+		}
+	}, [defaultBrandId])
+
 	const setHiddenHandler = () => {
 		if (ref.current) {
 			if (isHidden) {
@@ -83,21 +97,13 @@ const ProductCategoryPage: FC = () => {
 				<Nav links={[{ href: '/products/', title: 'Смартфоны' }]} />
 				<h4>{data?.data && data.data.findByIdCategory.title}</h4>
 				<div className={styles.filter}>
-					<div className={styles.filter__title}>
+					<div className={styles.filter__title} onClick={setHiddenHandler}>
 						<h4>Фильтрация</h4>
 						<div>
 							{isHidden ? (
-								<TiArrowSortedUp
-									size={20}
-									color='#2B3A4E'
-									onClick={setHiddenHandler}
-								/>
+								<TiArrowSortedUp size={20} color='#2B3A4E' />
 							) : (
-								<TiArrowSortedDown
-									size={20}
-									color='#2B3A4E'
-									onClick={setHiddenHandler}
-								/>
+								<TiArrowSortedDown size={20} color='#2B3A4E' />
 							)}
 						</div>
 					</div>
@@ -153,6 +159,9 @@ const ProductCategoryPage: FC = () => {
 						<h4>Список товаров пуст.</h4>
 					)}
 				</div>
+				{productsData?.data && (
+					<Pagination setFilterDto={setFilterDto} filterDto={filterDto} />
+				)}
 			</div>
 		</div>
 	)

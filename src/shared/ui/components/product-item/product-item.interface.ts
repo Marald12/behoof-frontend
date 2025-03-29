@@ -7,6 +7,9 @@ export interface IProductItem {
 	price: number
 	rating: number
 	characteristics: any
+	brand: {
+		title: string
+	}
 	reviews?: Array<{
 		__typename?: 'Review'
 		id: string

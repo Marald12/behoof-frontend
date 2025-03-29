@@ -1,0 +1,26 @@
+.characteristic {
+	> span {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 18px;
+		color: #7e8794;
+	}
+
+	&__items {
+		display: flex;
+		gap: 2px;
+		margin-top: 4px;
+
+		&_item {
+			width: 50.6px;
+			height: 4px;
+			border-radius: 2px;
+			background: #eceeef;
+
+			&.active {
+				background: #ff4d4d;
+			}
+		}
+	}
+}

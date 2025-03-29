@@ -1,0 +1,17 @@
+.button {
+	padding: 8px 8px;
+	border-radius: 50%;
+	background: #fff;
+	border: 1px solid #f2f5f9;
+	cursor: pointer;
+
+	@media (max-width: 420px) {
+		padding: 4px;
+		height: 25px;
+
+		> svg {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}

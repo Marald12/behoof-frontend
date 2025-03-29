@@ -578,6 +578,8 @@ export type QueryFilterProductsArgs = {
   minPrice?: InputMaybe<Scalars['Float']['input']>;
   portabilityCount?: InputMaybe<Scalars['Float']['input']>;
   screen?: InputMaybe<Scalars['Float']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -907,10 +909,17 @@ export type FilterProductsQueryVariables = Exact<{
   category?: InputMaybe<Scalars['String']['input']>;
   allRating?: InputMaybe<Scalars['Float']['input']>;
   portabilityCount?: InputMaybe<Scalars['Float']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
-export type FilterProductsQuery = { __typename?: 'Query', filterProducts: Array<{ __typename?: 'Product', id: string, title: string, description: string, images?: Array<string> | null, price: number, rating: number, characteristics: any, reviews?: Array<{ __typename?: 'Review', id: string }> | null }> };
+export type FilterProductsQuery = { __typename?: 'Query', filterProducts: Array<{ __typename?: 'Product', id: string, title: string, description: string, images?: Array<string> | null, price: number, rating: number, characteristics: any, reviews?: Array<{ __typename?: 'Review', id: string }> | null, brand: { __typename?: 'Brand', title: string } }> };
+
+export type FindAllProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllProductsQuery = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string }> };
 
 export type CreateQuestionMutationVariables = Exact<{
   dto: QuestionDto;
@@ -918,6 +927,13 @@ export type CreateQuestionMutationVariables = Exact<{
 
 
 export type CreateQuestionMutation = { __typename?: 'Mutation', createQuestion: { __typename?: 'Question', id: string, question: string } };
+
+export type AddProductToFavoriteMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type AddProductToFavoriteMutation = { __typename?: 'Mutation', addProductToFavorite: { __typename?: 'User', favoriteProducts?: Array<{ __typename?: 'Product', id: string, title: string }> | null } };
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String']['input'];
@@ -943,6 +959,13 @@ export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null } };
+
+export type RemoveProductFromFavoriteMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type RemoveProductFromFavoriteMutation = { __typename?: 'Mutation', removeProductFromFavorite: { __typename?: 'User', favoriteProducts?: Array<{ __typename?: 'Product', id: string, title: string }> | null } };
 
 export type CreateTokenAndSendEmailMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1015,7 +1038,7 @@ export const FindByIdCategoryDocument = gql`
 }
     `;
 export const FilterProductsDocument = gql`
-    query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $battery: Float, $memory: Float, $screen: Float, $category: String, $allRating: Float, $portabilityCount: Float) {
+    query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $battery: Float, $memory: Float, $screen: Float, $category: String, $allRating: Float, $portabilityCount: Float, $skip: Float, $take: Float) {
   filterProducts(
     brands: $brands
     minPrice: $minPrice
@@ -1026,6 +1049,8 @@ export const FilterProductsDocument = gql`
     category: $category
     allRating: $allRating
     portabilityCount: $portabilityCount
+    skip: $skip
+    take: $take
   ) {
     id
     title
@@ -1037,6 +1062,17 @@ export const FilterProductsDocument = gql`
     reviews {
       id
     }
+    brand {
+      title
+    }
+  }
+}
+    `;
+export const FindAllProductsDocument = gql`
+    query findAllProducts {
+  findAllProducts {
+    id
+    title
   }
 }
     `;
@@ -1045,6 +1081,16 @@ export const CreateQuestionDocument = gql`
   createQuestion(dto: $dto) {
     id
     question
+  }
+}
+    `;
+export const AddProductToFavoriteDocument = gql`
+    mutation addProductToFavorite($id: String!) {
+  addProductToFavorite(productId: $id) {
+    favoriteProducts {
+      id
+      title
+    }
   }
 }
     `;
@@ -1083,6 +1129,16 @@ export const GetProfileDocument = gql`
       id
       question
       createdAt
+    }
+  }
+}
+    `;
+export const RemoveProductFromFavoriteDocument = gql`
+    mutation removeProductFromFavorite($id: String!) {
+  removeProductFromFavorite(productId: $id) {
+    favoriteProducts {
+      id
+      title
     }
   }
 }
@@ -1140,8 +1196,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     filterProducts(variables?: FilterProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FilterProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FilterProductsQuery>(FilterProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'filterProducts', 'query', variables);
     },
+    findAllProducts(variables?: FindAllProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindAllProductsQuery>(FindAllProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllProducts', 'query', variables);
+    },
     createQuestion(variables: CreateQuestionMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateQuestionMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateQuestionMutation>(CreateQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createQuestion', 'mutation', variables);
+    },
+    addProductToFavorite(variables: AddProductToFavoriteMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<AddProductToFavoriteMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AddProductToFavoriteMutation>(AddProductToFavoriteDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addProductToFavorite', 'mutation', variables);
     },
     changePassword(variables: ChangePasswordMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ChangePasswordMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<ChangePasswordMutation>(ChangePasswordDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'changePassword', 'mutation', variables);
@@ -1154,6 +1216,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getProfile(variables?: GetProfileQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProfileQuery>(GetProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfile', 'query', variables);
+    },
+    removeProductFromFavorite(variables: RemoveProductFromFavoriteMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<RemoveProductFromFavoriteMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RemoveProductFromFavoriteMutation>(RemoveProductFromFavoriteDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeProductFromFavorite', 'mutation', variables);
     },
     createTokenAndSendEmail(variables?: CreateTokenAndSendEmailMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateTokenAndSendEmailMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateTokenAndSendEmailMutation>(CreateTokenAndSendEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createTokenAndSendEmail', 'mutation', variables);

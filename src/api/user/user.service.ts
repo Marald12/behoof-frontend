@@ -3,11 +3,13 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { axiosMain } from '@/shared/utils/axios-main'
 import { profileSchema } from '@/api/user/schemas/profile.schema'
 import {
+	AddProductToFavoriteMutation,
 	ChangePasswordMutation,
 	CreateTokenAndSendEmailMutation,
 	FindByEmailAndCreateAndSendEmailMutation,
 	GetProfileQuery,
 	LogoutMutation,
+	RemoveProductFromFavoriteMutation,
 	UpdateUserMutation
 } from '@/shared/types/graphql'
 import { IApi } from '@/api/api.type'
@@ -18,6 +20,8 @@ import { createTokenAndSendEmailSchema } from '@/api/user/schemas/reset-password
 import { findByEmailAndCreateAndSendEmailSchema } from '@/api/user/schemas/reset-password-no-auth.schema'
 import { changePasswordQuery } from '@/api/user/schemas/change-password.schema'
 import { checkTokenSchema } from '@/api/user/schemas/check-token.schema'
+import { addProductToFavoriteSchema } from '@/api/user/schemas/add-product-to-favorite.schema'
+import { removeProductFromFavoriteSchema } from '@/api/user/schemas/remove-product-to-favorite.schema'
 
 export const userService = {
 	async fetchProfile(cookiesHeader?: RequestCookie) {
@@ -89,7 +93,35 @@ export const userService = {
 				variables: { token }
 			})
 
-			console.log(request)
+			return request.data
+		} catch (e) {
+			//@ts-ignore
+			console.log(e.response.data)
+		}
+	},
+	async addProductToFavorite(id: string) {
+		try {
+			const request = await axiosMain().post<
+				IApi<AddProductToFavoriteMutation>
+			>('', {
+				query: addProductToFavoriteSchema,
+				variables: { id }
+			})
+
+			return request.data
+		} catch (e) {
+			//@ts-ignore
+			console.log(e.response.data)
+		}
+	},
+	async removeProductFromFavorite(id: string) {
+		try {
+			const request = await axiosMain().post<
+				IApi<RemoveProductFromFavoriteMutation>
+			>('', {
+				query: removeProductFromFavoriteSchema,
+				variables: { id }
+			})
 
 			return request.data
 		} catch (e) {
