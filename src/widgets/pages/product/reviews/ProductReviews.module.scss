@@ -1,0 +1,39 @@
+.reviews {
+  display: flex;
+  flex-direction: column;
+
+  > h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #0F1113;
+    margin-top: 40px;
+
+    @media (max-width: 872px) {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  > span {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #0F1113;
+    margin-top: 10px;
+    border-radius: 12px;
+    padding: 16px;
+    background: #F6F7FA;
+    max-width: 180px;
+  }
+
+  > div {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+}

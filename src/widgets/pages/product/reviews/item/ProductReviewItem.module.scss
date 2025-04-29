@@ -1,0 +1,54 @@
+.item {
+  border-radius: 12px;
+  padding: 16px;
+  background: #F6F7FA;
+  max-width: 466.67px;
+  min-height: 120px;
+
+  &__header {
+    display: flex;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-left: 12px;
+
+      > span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: #263141;
+      }
+
+      > div {
+        display: flex;
+        gap: 4px;
+
+        > span {
+          font-family: 'Inter', sans-serif;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 22px;
+          margin-left: 5px;
+          color: #7E8794;
+        }
+      }
+    }
+  }
+
+  > p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #474F5A;
+    margin-top: 8px;
+
+    @media (max-width: 872px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+}

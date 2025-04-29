@@ -1,0 +1,43 @@
+.page {
+  .product__container {
+    > div {
+      > .mobile,
+      .desktop {
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        @media (max-width: 872px) {
+          gap: 20px;
+        }
+      }
+
+      .mobile {
+        display: none;
+      }
+
+      @media (max-width: 872px) {
+        .desktop {
+          display: none;
+        }
+
+        .mobile {
+          display: flex;
+        }
+      }
+    }
+
+    &_image_block {
+      max-width: 710px;
+
+      @media (max-width: 1250px) {
+        max-width: 600px;
+      }
+
+      @media (max-width: 1006px) {
+        max-width: 470px;
+      }
+    }
+  }
+}

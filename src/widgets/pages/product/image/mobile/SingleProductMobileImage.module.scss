@@ -1,0 +1,45 @@
+.image {
+  background-color: #f6f7fa;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 560px) {
+    padding: 6px;
+  }
+
+  > img {
+    transition: opacity 0.3s ease-in-out;
+
+    @media (max-width: 560px) {
+      width: 243px;
+      height: 303px;
+    }
+  }
+
+  > button {
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+
+    @media (max-width: 560px) {
+      width: 32px;
+      height: 32px;
+      padding: 8px;
+      margin: 0 5px;
+
+      > svg {
+        width: 14px;
+        height: 14px;
+
+      }
+    }
+  }
+}

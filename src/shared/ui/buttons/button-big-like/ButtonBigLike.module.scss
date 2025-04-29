@@ -1,0 +1,19 @@
+.button {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 16px 20px;
+	border-radius: 8px;
+	background: #ffeeee;
+	color: #ff4d4d;
+	font-family: 'Inter', sans-serif;
+	font-size: 16px;
+	line-height: 22px;
+	cursor: pointer;
+	transition: 0.3s ease-in-out;
+	border: none;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}

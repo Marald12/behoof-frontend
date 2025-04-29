@@ -1,0 +1,48 @@
+.image {
+  &__big {
+    background-color: #f6f7fa;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > img {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    > button {
+      width: 56px;
+      height: 56px;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+  }
+
+  &__small_images {
+    display: flex;
+    justify-content: center;
+    gap: 20.5px;
+    margin-top: 20px;
+    transition: all 0.2s ease-in-out;
+
+    > div {
+      background-color: #f6f7fa;
+      padding: 12px 20px;
+      border-radius: 8px;
+
+      > img {
+        background-size: cover;
+
+        @media (max-width: 1250px) {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+  }
+}

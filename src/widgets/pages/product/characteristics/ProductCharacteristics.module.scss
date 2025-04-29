@@ -1,0 +1,145 @@
+.characteristics {
+  margin-top: 32px;
+  padding: 20px;
+  border: 1px solid #f2f5f9;
+  border-radius: 12px;
+
+  > h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #0f1113;
+
+    @media (max-width: 1250px) {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  &__mini {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+
+    @media (max-width: 1006px) {
+      flex-wrap: wrap;
+      max-width: 300px;
+    }
+
+    > div {
+      padding: 8px 12px;
+      background: #F6F7FA;
+      border-radius: 8px;
+      color: #7E8794;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+
+      @media (max-width: 1250px) {
+        padding: 4px 6px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      > b {
+        font-weight: 500;
+        color: #263141;
+      }
+    }
+  }
+
+  > span {
+    margin-top: 20px;
+    color: #FF4D4D;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    @media (max-width: 1250px) {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  > p {
+    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #263141;
+
+    @media (max-width: 1250px) {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+
+  &__share {
+    > h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: #263141;
+      margin-top: 20px;
+
+      @media (max-width: 1006px) {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+
+    > div {
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: 370px 1fr;
+      row-gap: 10px;
+      column-gap: 20px;
+      max-width: 100%;
+      border-bottom: 1px solid #ECEEEF;
+
+      @media (max-width: 1006px) {
+        grid-template-columns: 170px 1fr;
+      }
+
+      > span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #7E8794;
+
+        @media (max-width: 1006px) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+
+      > strong {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #263141;
+
+        @media (max-width: 1006px) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+}

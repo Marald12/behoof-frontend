@@ -22,14 +22,14 @@ const Header: FC = async () => {
 				</div>
 				<HeaderSearch />
 				<div className={styles.links}>
-					<Link href=''>
+					<Link href="">
 						<ButtonIcon>
-							<GoHeart size={24} color='#263141' />
+							<GoHeart size={24} color="#263141" />
 						</ButtonIcon>
 					</Link>
-					<Link href=''>
+					<Link href="">
 						<ButtonIcon>
-							<TbBrandGoogleAnalytics size={24} color='#263141' />
+							<TbBrandGoogleAnalytics size={24} color="#263141" />
 						</ButtonIcon>
 					</Link>
 					<Hydrate state={dehydratedState}>

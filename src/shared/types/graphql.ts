@@ -230,6 +230,7 @@ export type Color = {
   color: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   products?: Maybe<Array<Product>>;
+  title: Scalars['String']['output'];
 };
 
 export type ColorCount = {
@@ -242,22 +243,26 @@ export type ColorCountAggregate = {
   _all: Scalars['Int']['output'];
   color: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
+  title: Scalars['Int']['output'];
 };
 
 export type ColorDto = {
   color: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type ColorMaxAggregate = {
   __typename?: 'ColorMaxAggregate';
   color?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type ColorMinAggregate = {
   __typename?: 'ColorMinAggregate';
   color?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type Comment = {
@@ -921,6 +926,20 @@ export type FindAllProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindAllProductsQuery = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string }> };
 
+export type FindProductByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindProductByIdQuery = { __typename?: 'Query', findProductById: { __typename?: 'Product', id: string, title: string, description: string, price: number, images?: Array<string> | null, characteristics: any, rating: number, category: { __typename?: 'Category', id: string, title: string }, brand: { __typename?: 'Brand', id: string, title: string }, colors?: Array<{ __typename?: 'Color', id: string, color: string, title: string }> | null, reviews?: Array<{ __typename?: 'Review', id: string, message: string, starsCount: number, createdAt: any, user: { __typename?: 'User', name: string } }> | null } };
+
+export type SearchProductsQueryVariables = Exact<{
+  value: Scalars['String']['input'];
+}>;
+
+
+export type SearchProductsQuery = { __typename?: 'Query', searchProducts: Array<{ __typename?: 'Product', id: string, title: string, images?: Array<string> | null, price: number, brand: { __typename?: 'Brand', title: string }, category: { __typename?: 'Category', title: string } }> };
+
 export type CreateQuestionMutationVariables = Exact<{
   dto: QuestionDto;
 }>;
@@ -1076,6 +1095,57 @@ export const FindAllProductsDocument = gql`
   }
 }
     `;
+export const FindProductByIdDocument = gql`
+    query findProductById($id: String!) {
+  findProductById(id: $id) {
+    id
+    title
+    description
+    price
+    category {
+      id
+      title
+    }
+    brand {
+      id
+      title
+    }
+    colors {
+      id
+      color
+      title
+    }
+    images
+    characteristics
+    rating
+    reviews {
+      id
+      message
+      starsCount
+      user {
+        name
+      }
+      createdAt
+    }
+  }
+}
+    `;
+export const SearchProductsDocument = gql`
+    query SearchProducts($value: String!) {
+  searchProducts(search: $value) {
+    id
+    title
+    images
+    price
+    brand {
+      title
+    }
+    category {
+      title
+    }
+  }
+}
+    `;
 export const CreateQuestionDocument = gql`
     mutation createQuestion($dto: QuestionDto!) {
   createQuestion(dto: $dto) {
@@ -1198,6 +1268,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     findAllProducts(variables?: FindAllProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindAllProductsQuery>(FindAllProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllProducts', 'query', variables);
+    },
+    findProductById(variables: FindProductByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindProductByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindProductByIdQuery>(FindProductByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findProductById', 'query', variables);
+    },
+    SearchProducts(variables: SearchProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<SearchProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchProductsQuery>(SearchProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchProducts', 'query', variables);
     },
     createQuestion(variables: CreateQuestionMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateQuestionMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateQuestionMutation>(CreateQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createQuestion', 'mutation', variables);

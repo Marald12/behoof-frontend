@@ -1,5 +1,5 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './HeaderSearch.module.scss'
 import ButtonMain from '@/shared/ui/buttons/main/ButtonMain'
 import { FaCaretDown } from 'react-icons/fa'
@@ -7,9 +7,20 @@ import InputGray from '@/shared/ui/inputs/gray/InputGray'
 import { FiSearch } from 'react-icons/fi'
 import Catalog from '@/features/catalog/Catalog'
 import { useOutside } from '@/shared/hooks/useOutside'
+import Search from '@/features/search/Search'
 
 const HeaderSearch: FC = () => {
 	const { ref, isShow, setIsShow } = useOutside(false)
+	const { ref: searchRef, isShow: searchIsShow, setIsShow: setSearchIsShow } = useOutside(false)
+	const [value, setValue] = useState('')
+
+	const handleInput = (e) => {
+		setValue(e.target.value)
+		if (e.target.value.trim() === '') {
+			return setSearchIsShow(false)
+		}
+		setSearchIsShow(true)
+	}
 
 	return (
 		<>
@@ -18,14 +29,15 @@ const HeaderSearch: FC = () => {
 					Каталог товаров
 					<FaCaretDown />
 				</ButtonMain>
-				<div className={styles.input}>
-					<InputGray placeholder='Поиск товаров' />
+				<div className={styles.input} ref={searchRef}>
+					<InputGray placeholder="Поиск товаров" onInput={handleInput} value={value} />
 					<div>
-						<FiSearch size={24} color='#7E8794' />
+						<FiSearch size={24} color="#7E8794" />
 					</div>
 				</div>
 			</div>
-			<Catalog isShow={isShow} ref={ref} setIsShow={setIsShow} />
+			<Search isShow={searchIsShow} ref={searchRef} setIsShow={setSearchIsShow} value={value} />
+			<Catalog isShow={isShow} ref={ref} setIsShow={setSearchIsShow} />
 		</>
 	)
 }
