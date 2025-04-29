@@ -6,6 +6,7 @@ import useDebounce from '@/shared/hooks/useDebounce'
 import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/api/products/product.service'
 import Loader from '@/shared/ui/components/loader/Loader'
+import SearchItem from '@/features/search/item/SearchItem'
 
 const Search: FC<ISearchProps> = ({ isShow, ref, value }) => {
 	const debouncedValue = useDebounce<string>(value, 200)
@@ -19,11 +20,11 @@ const Search: FC<ISearchProps> = ({ isShow, ref, value }) => {
 		<div className={cn(styles.search, isShow && styles.show)}>
 			<div className={styles.search__window} ref={ref}>
 				<div className="container">
-					{isLoading && <Loader />}
-					{!debouncedValue && <Loader />}
-					{data && data.data?.searchProducts.map((product) => <div key={product.id}>
-						{product.title}
-					</div>)}
+					<div className={styles.search__window_items}>
+						{isLoading && <Loader />}
+						{!debouncedValue && <Loader />}
+						{data && data.data?.searchProducts.map((product) => <SearchItem product={product} key={product.id} />)}
+					</div>
 				</div>
 			</div>
 		</div>

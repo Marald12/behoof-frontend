@@ -938,7 +938,7 @@ export type SearchProductsQueryVariables = Exact<{
 }>;
 
 
-export type SearchProductsQuery = { __typename?: 'Query', searchProducts: Array<{ __typename?: 'Product', id: string, title: string, images?: Array<string> | null, price: number, brand: { __typename?: 'Brand', title: string }, category: { __typename?: 'Category', title: string } }> };
+export type SearchProductsQuery = { __typename?: 'Query', searchProducts: Array<{ __typename?: 'Product', id: string, title: string, images?: Array<string> | null, price: number, characteristics: any, brand: { __typename?: 'Brand', title: string }, category: { __typename?: 'Category', title: string }, colors?: Array<{ __typename?: 'Color', title: string }> | null }> };
 
 export type CreateQuestionMutationVariables = Exact<{
   dto: QuestionDto;
@@ -1141,6 +1141,10 @@ export const SearchProductsDocument = gql`
       title
     }
     category {
+      title
+    }
+    characteristics
+    colors {
       title
     }
   }

@@ -1,0 +1,66 @@
+.item {
+  background-color: #F6F7FA;
+  border-radius: 12px;
+  padding: 12px;
+  max-width: 272px;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__content {
+    margin-top: 12px;
+
+    > span {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: #7E8794;
+    }
+
+    > h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      color: #263141;
+      margin: 3px 0;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+
+    &_price {
+      > span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #7E8794;
+      }
+
+      > h4 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 18px;
+        color: #263141;
+        margin: 3px 0;
+      }
+    }
+
+    &_buttons {
+      display: flex;
+      gap: 12px;
+
+      > button {
+        width: 44px;
+        height: 44px;
+      }
+    }
+  }
+}

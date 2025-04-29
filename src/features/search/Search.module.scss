@@ -17,5 +17,11 @@
     background: #fff;
     width: 100%;
     height: auto;
+    padding: 40px 0;
+
+    &_items {
+      display: flex;
+      gap: 20px;
+    }
   }
 }

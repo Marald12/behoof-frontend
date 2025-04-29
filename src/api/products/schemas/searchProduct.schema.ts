@@ -13,6 +13,10 @@ export const searchProductSchema = gql`
             category {
                 title
             }
+            characteristics
+            colors {
+                title
+            }
         }
     }
 `

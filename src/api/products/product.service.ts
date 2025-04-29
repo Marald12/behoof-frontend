@@ -54,7 +54,7 @@ export const productService = {
 		return request.data
 	},
 	async searchProducts(value: string): IApi<SearchProductsQuery> {
-		const request = await axiosMain().post<IApi<FindProductByIdQuery>>('', {
+		const request = await axiosMain().post<IApi<SearchProductsQuery>>('', {
 			query: searchProductSchema,
 			variables: {
 				value
