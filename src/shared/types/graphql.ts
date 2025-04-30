@@ -872,6 +872,17 @@ export type UserMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
+export type FindAllArticlesQueryVariables = Exact<{
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take?: InputMaybe<Scalars['Float']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  tag?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindAllArticlesQuery = { __typename?: 'Query', findAllArticles: Array<{ __typename?: 'Article', id: string, title: string, banner: string }> };
+
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -1006,6 +1017,21 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', name: string, country: string, city: string } };
 
 
+export const FindAllArticlesDocument = gql`
+    query findAllArticles($categoryId: String, $skip: Float, $take: Float, $search: String, $tag: String) {
+  findAllArticles(
+    categoryId: $categoryId
+    skip: $skip
+    take: $take
+    search: $search
+    tag: $tag
+  ) {
+    id
+    title
+    banner
+  }
+}
+    `;
 export const LoginUserDocument = gql`
     mutation loginUser($email: String!, $password: String!) {
   login(body: {email: $email, password: $password}) {
@@ -1252,6 +1278,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    findAllArticles(variables?: FindAllArticlesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllArticlesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindAllArticlesQuery>(FindAllArticlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllArticles', 'query', variables);
+    },
     loginUser(variables: LoginUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LoginUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LoginUserMutation>(LoginUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'loginUser', 'mutation', variables);
     },

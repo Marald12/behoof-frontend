@@ -1,13 +1,13 @@
 'use client'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './Catalog.module.scss'
-import { ICatalogProps } from '@/features/catalog/catalog.interface'
 import cn from 'classnames'
 import { categoryService } from '@/api/category/category.service'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '@/shared/ui/components/loader/Loader'
 import { FaCaretRight } from 'react-icons/fa'
 import Link from 'next/link'
+import { ICatalogProps } from './catalog.interface'
 
 const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 	const [isMouseEvent, setIsMouseEvent] = useState('')
@@ -26,6 +26,18 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 	const selectedProducts = selectedCategory?.brands?.find(
 		item => item.id === isMouseEventTwo
 	)
+
+	useEffect(() => {
+		if (isShow) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+
+		return () => {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [isShow])
 
 	return (
 		<div className={cn(styles.catalog, isShow && styles.show)}>
@@ -47,7 +59,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color='#2B3A4E' />
+										<FaCaretRight size={18} color="#2B3A4E" />
 									</Link>
 								))}
 							</div>
@@ -68,7 +80,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color='#2B3A4E' />
+										<FaCaretRight size={18} color="#2B3A4E" />
 									</Link>
 								))}
 						</div>
@@ -88,7 +100,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color='#2B3A4E' />
+										<FaCaretRight size={18} color="#2B3A4E" />
 									</Link>
 								))}
 						</div>

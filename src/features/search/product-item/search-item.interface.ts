@@ -1,4 +1,6 @@
-export interface ISearchItemProps {
+import { AnchorHTMLAttributes } from 'react'
+
+export interface ISearchItemProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	product: {
 		__typename?: 'Product'
 		id: string
@@ -19,5 +21,6 @@ export interface ISearchItemProps {
 			title: string
 		}> | null
 	}
+	setShow: (value: (((prevState: boolean) => boolean) | boolean)) => void
 	key: any
 }

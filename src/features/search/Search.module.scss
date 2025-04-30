@@ -23,5 +23,46 @@
       display: flex;
       gap: 20px;
     }
+
+    &_footer {
+      margin-top: 24px;
+      display: flex;
+      gap: 20px;
+
+      > div > h4 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 28px;
+        color: #263141;
+      }
+
+      &_reviews {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      &_often_searched {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 30%;
+
+        > a {
+          font-family: 'Inter', sans-serif;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 20px;
+          color: #263141;
+          border-bottom: 1px solid #ECEEEF;
+          padding-bottom: 12px;
+
+          &:first-child {
+            margin-top: 4px;
+          }
+        }
+      }
+    }
   }
 }

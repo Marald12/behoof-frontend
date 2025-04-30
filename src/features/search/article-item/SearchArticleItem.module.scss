@@ -1,0 +1,35 @@
+.item {
+  display: flex;
+  background: #F6F7FA;
+  border-radius: 12px;
+  max-width: 583px;
+
+  > img {
+    border-radius: 12px 0 0 12px;
+  }
+
+  > div {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    > span {
+      color: #263141;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    > a {
+      display: flex;
+      align-items: center;
+      color: #FF4D4D;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}

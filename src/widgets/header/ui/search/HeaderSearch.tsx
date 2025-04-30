@@ -8,6 +8,7 @@ import { FiSearch } from 'react-icons/fi'
 import Catalog from '@/features/catalog/Catalog'
 import { useOutside } from '@/shared/hooks/useOutside'
 import Search from '@/features/search/Search'
+import cn from 'classnames'
 
 const HeaderSearch: FC = () => {
 	const { ref, isShow, setIsShow } = useOutside(false)
@@ -22,6 +23,11 @@ const HeaderSearch: FC = () => {
 		setSearchIsShow(true)
 	}
 
+	const focusHandler = (e) => {
+		if (e.target.value.trim() !== '')
+			return setSearchIsShow(true)
+	}
+
 	return (
 		<>
 			<div className={styles.search}>
@@ -30,14 +36,15 @@ const HeaderSearch: FC = () => {
 					<FaCaretDown />
 				</ButtonMain>
 				<div className={styles.input} ref={searchRef}>
-					<InputGray placeholder="Поиск товаров" onInput={handleInput} value={value} />
+					<InputGray className={cn(searchIsShow && styles.active)} placeholder="Поиск товаров" onInput={handleInput}
+										 onClick={focusHandler} value={value} />
 					<div>
 						<FiSearch size={24} color="#7E8794" />
 					</div>
 				</div>
 			</div>
 			<Search isShow={searchIsShow} ref={searchRef} setIsShow={setSearchIsShow} value={value} />
-			<Catalog isShow={isShow} ref={ref} setIsShow={setSearchIsShow} />
+			<Catalog isShow={isShow} ref={ref} setIsShow={setIsShow} />
 		</>
 	)
 }
