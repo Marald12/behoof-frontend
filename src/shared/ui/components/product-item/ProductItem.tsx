@@ -27,7 +27,7 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 					<div>{product.rating}.0 Оценка экспертов</div>
 					{product.reviews && (
 						<div>
-							{product.characteristics.answerCount}.0
+							{product.characteristics.answerCount}
 							{product.reviews && (
 								<>
 									<div className={styles.stars}>
@@ -44,7 +44,7 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 										))}
 									</div>
 									<div className={styles.star}>
-										<GoStarFill size={21} color='#FF4D4D' />
+										<GoStarFill size={21} color="#FF4D4D" />
 									</div>
 									<span> {product.reviews?.length} Отзывов</span>
 								</>
@@ -80,27 +80,27 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 			</div>
 			<div className={styles.item__characteristics}>
 				<ProductItemCharacteristic
-					label='Дизайн'
+					label="Дизайн"
 					count={product.characteristics.designCount}
 				/>
 				<ProductItemCharacteristic
-					label='Батарея'
+					label="Батарея"
 					count={product.characteristics.batteryCount}
 				/>
 				<ProductItemCharacteristic
-					label='Дисплей'
+					label="Дисплей"
 					count={product.characteristics.displayCount}
 				/>
 				<ProductItemCharacteristic
-					label='Камера'
+					label="Камера"
 					count={product.characteristics.cameraCount}
 				/>
 				<ProductItemCharacteristic
-					label='Ответ'
+					label="Ответ"
 					count={product.characteristics.answerCount}
 				/>
 				<ProductItemCharacteristic
-					label='Портативность'
+					label="Портативность"
 					count={product.characteristics.portabilityCount}
 				/>
 				<Link href={`/product/${product.id}`}>

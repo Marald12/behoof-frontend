@@ -27,7 +27,7 @@ body {
 
   &.no-scroll {
     overflow: hidden;
-    position: fixed; /* Это важно */
+    position: fixed;
     width: 100%;
   }
 }

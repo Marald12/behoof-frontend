@@ -1,0 +1,55 @@
+.page {
+  .section__one {
+    display: flex;
+    gap: 32px;
+
+    > div {
+      background: #F2F5F9;
+      border-radius: 16px;
+      padding: 40px;
+
+      h2 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: 40px;
+        line-height: 62px;
+
+        > span {
+          color: #FF4D4D;
+        }
+      }
+
+      > a > button {
+        margin-top: 32px;
+
+        > svg {
+          margin-top: 1px;
+        }
+      }
+    }
+
+    &_category {
+      flex: 65%;
+    }
+
+    &_top {
+      flex: 35%;
+      position: relative;
+      overflow: hidden;
+
+      > img {
+        position: absolute;
+        right: 44px;
+        bottom: -224px;
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  .section__two {
+    background: #F6F7F9;
+    margin: 53px -15px 0 -15px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+    padding: 67px 0;
+  }
+}
