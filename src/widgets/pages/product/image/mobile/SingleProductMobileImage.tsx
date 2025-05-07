@@ -23,34 +23,34 @@ const SingleProductMobileImage: FC<IProductProps> = ({ product }) => {
 			ref.current.style.opacity = '0'
 			setTimeout(() => {
 				setActiveImage(prev => (prev <= 0 ? prev : prev - 1))
-				ref.current.style.opacity = '1'
+				ref.current!.style.opacity = '1'
 			}, 400)
 		}
 		if (ref2.current) {
 			ref2.current.style.opacity = '0'
 
 			setTimeout(() => {
-				ref2.current.style.opacity = '1'
+				ref2.current!.style.opacity = '1'
 			}, 400)
 		}
 	}
 
 	const clickRightHandler = () => {
-		if (ref.current) {
+		if (ref.current && productImages) {
 			ref.current.style.opacity = '0'
 
 			setTimeout(() => {
 				setActiveImage(prev =>
-					prev >= productImages?.length - 1 ? prev : prev + 1
+					prev >= productImages.length - 1 ? prev : prev + 1
 				)
-				ref.current.style.opacity = '1'
+				ref.current!.style.opacity = '1'
 			}, 400)
 		}
 		if (ref2.current) {
 			ref2.current.style.opacity = '0'
 
 			setTimeout(() => {
-				ref2.current.style.opacity = '1'
+				ref2.current!.style.opacity = '1'
 			}, 400)
 		}
 	}

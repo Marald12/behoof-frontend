@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useState } from 'react'
+import React, { FC, FormEvent, useState } from 'react'
 import styles from './HeaderSearch.module.scss'
 import ButtonMain from '@/shared/ui/buttons/main/ButtonMain'
 import { FaCaretDown } from 'react-icons/fa'
@@ -15,16 +15,20 @@ const HeaderSearch: FC = () => {
 	const { ref: searchRef, isShow: searchIsShow, setIsShow: setSearchIsShow } = useOutside(false)
 	const [value, setValue] = useState('')
 
-	const handleInput = (e) => {
-		setValue(e.target.value)
-		if (e.target.value.trim() === '') {
+	const handleInput = (e: FormEvent<HTMLInputElement>) => {
+		const target = e.target as HTMLInputElement
+
+		setValue(target.value)
+		if (target.value.trim() === '') {
 			return setSearchIsShow(false)
 		}
 		setSearchIsShow(true)
 	}
 
-	const focusHandler = (e) => {
-		if (e.target.value.trim() !== '')
+	const focusHandler = (e: FormEvent<HTMLInputElement>) => {
+		const target = e.target as HTMLInputElement
+
+		if (target.value.trim() !== '')
 			return setSearchIsShow(true)
 	}
 

@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, Suspense, useEffect, useRef, useState } from 'react'
 import styles from './ProfileUserName.module.scss'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { userService } from '@/api/user/user.service'
@@ -10,6 +10,7 @@ import { IoMdCheckmark } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 import Loader from '@/shared/ui/components/loader/Loader'
+import CheckToast from '@/features/check-toast/CheckToast'
 
 const ProfileUserName: FC = () => {
 	const ref = useRef<HTMLInputElement>(null)
@@ -54,9 +55,12 @@ const ProfileUserName: FC = () => {
 
 	return (
 		<div className={styles.username}>
+			<Suspense fallback={<Loader />}>
+				<CheckToast />
+			</Suspense>
 			{isEdit ? (
 				<input
-					type='text'
+					type="text"
 					ref={ref}
 					value={value}
 					onChange={e => setValue(e.target.value)}

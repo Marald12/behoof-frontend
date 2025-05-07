@@ -1,30 +1,30 @@
 'use client'
-import {
-	findByIdCategorySchema,
-	getCategoriesForMenu
-} from '@/api/category/category.schemas'
+import { findAllCategoriesSchema, findByIdCategorySchema, getCategoriesForMenu } from '@/api/category/category.schemas'
 import { axiosMain } from '@/shared/utils/axios-main'
-import {
-	FindByIdCategoryQuery,
-	GetCategoriesForMenuQuery
-} from '@/shared/types/graphql'
+import { FindAllCategoriesQuery, FindByIdCategoryQuery, GetCategoriesForMenuQuery } from '@/shared/types/graphql'
 import { IApi } from '@/api/api.type'
 
 export const categoryService = {
-	async getForMenu() {
-		const request = await axiosMain().post<IApi<GetCategoriesForMenuQuery>>(
-			'',
-			{
-				query: getCategoriesForMenu
-			}
-		)
+	async getForMenu(): Promise<IApi<GetCategoriesForMenuQuery>> {
+		const request = await axiosMain().post('', {
+			query: getCategoriesForMenu
+		})
 
 		return request.data
 	},
-	async findByIdCategory(id: string) {
-		const request = await axiosMain().post<IApi<FindByIdCategoryQuery>>('', {
+
+	async findByIdCategory(id: string): Promise<IApi<FindByIdCategoryQuery>> {
+		const request = await axiosMain().post('', {
 			query: findByIdCategorySchema,
 			variables: { id }
+		})
+
+		return request.data
+	},
+
+	async findAllCategories(): Promise<IApi<FindAllCategoriesQuery>> {
+		const request = await axiosMain().post('', {
+			query: findAllCategoriesSchema
 		})
 
 		return request.data

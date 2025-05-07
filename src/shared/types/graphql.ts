@@ -915,6 +915,11 @@ export type FindByIdCategoryQueryVariables = Exact<{
 
 export type FindByIdCategoryQuery = { __typename?: 'Query', findByIdCategory: { __typename?: 'Category', id: string, title: string } };
 
+export type FindAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllCategoriesQuery = { __typename?: 'Query', findAllCategories: Array<{ __typename?: 'Category', banner: string, id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string }> | null }> };
+
 export type FilterProductsQueryVariables = Exact<{
   brands?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
   minPrice?: InputMaybe<Scalars['Float']['input']>;
@@ -936,6 +941,11 @@ export type FindAllProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindAllProductsQuery = { __typename?: 'Query', findAllProducts: Array<{ __typename?: 'Product', id: string, title: string }> };
+
+export type FindPopularProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindPopularProductsQuery = { __typename?: 'Query', findPopularProducts: Array<{ __typename?: 'Product', id: string, title: string, images?: Array<string> | null, price: number, characteristics: any, category: { __typename?: 'Category', title: string }, colors?: Array<{ __typename?: 'Color', title: string }> | null, brand: { __typename?: 'Brand', id: string, title: string } }> };
 
 export type FindProductByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -988,7 +998,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: string };
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null } };
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null, favoriteProducts?: Array<{ __typename?: 'Product', id: string, title: string, price: number, images?: Array<string> | null, category: { __typename?: 'Category', id: string, title: string } }> | null } };
 
 export type RemoveProductFromFavoriteMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1082,6 +1092,19 @@ export const FindByIdCategoryDocument = gql`
   }
 }
     `;
+export const FindAllCategoriesDocument = gql`
+    query findAllCategories {
+  findAllCategories {
+    banner
+    id
+    title
+    brands {
+      id
+      title
+    }
+  }
+}
+    `;
 export const FilterProductsDocument = gql`
     query filterProducts($brands: [String!], $minPrice: Float, $maxPrice: Float, $battery: Float, $memory: Float, $screen: Float, $category: String, $allRating: Float, $portabilityCount: Float, $skip: Float, $take: Float) {
   filterProducts(
@@ -1118,6 +1141,27 @@ export const FindAllProductsDocument = gql`
   findAllProducts {
     id
     title
+  }
+}
+    `;
+export const FindPopularProductsDocument = gql`
+    query findPopularProducts {
+  findPopularProducts {
+    id
+    title
+    images
+    price
+    category {
+      title
+    }
+    characteristics
+    colors {
+      title
+    }
+    brand {
+      id
+      title
+    }
   }
 }
     `;
@@ -1230,6 +1274,16 @@ export const GetProfileDocument = gql`
       question
       createdAt
     }
+    favoriteProducts {
+      id
+      title
+      price
+      images
+      category {
+        id
+        title
+      }
+    }
   }
 }
     `;
@@ -1296,11 +1350,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     findByIdCategory(variables: FindByIdCategoryQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindByIdCategoryQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindByIdCategoryQuery>(FindByIdCategoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findByIdCategory', 'query', variables);
     },
+    findAllCategories(variables?: FindAllCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllCategoriesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindAllCategoriesQuery>(FindAllCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllCategories', 'query', variables);
+    },
     filterProducts(variables?: FilterProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FilterProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FilterProductsQuery>(FilterProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'filterProducts', 'query', variables);
     },
     findAllProducts(variables?: FindAllProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindAllProductsQuery>(FindAllProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllProducts', 'query', variables);
+    },
+    findPopularProducts(variables?: FindPopularProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindPopularProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindPopularProductsQuery>(FindPopularProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findPopularProducts', 'query', variables);
     },
     findProductById(variables: FindProductByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindProductByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindProductByIdQuery>(FindProductByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findProductById', 'query', variables);

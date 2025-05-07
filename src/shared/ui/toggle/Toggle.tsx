@@ -4,9 +4,9 @@ import { IToggle } from '@/shared/ui/toggle/toggle.interface'
 import cn from 'classnames'
 
 const Toggle: FC<IToggle> = ({ label, labelIsRight, ...props }) => {
-	if (label) {
-		const [checked, setChecked] = useState(false)
+	const [checked, setChecked] = useState(false)
 
+	if (label) {
 		return (
 			<div className={styles.wrapper}>
 				{!labelIsRight && (
@@ -14,7 +14,7 @@ const Toggle: FC<IToggle> = ({ label, labelIsRight, ...props }) => {
 				)}
 				<label className={styles.toggle}>
 					<input
-						type='checkbox'
+						type="checkbox"
 						checked={checked}
 						onChange={e => setChecked(e.target.checked)}
 						{...props}
@@ -30,7 +30,7 @@ const Toggle: FC<IToggle> = ({ label, labelIsRight, ...props }) => {
 
 	return (
 		<label className={styles.toggle}>
-			<input type='checkbox' {...props} />
+			<input type="checkbox" {...props} />
 			<span></span>
 		</label>
 	)

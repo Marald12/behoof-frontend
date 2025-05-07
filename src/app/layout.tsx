@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-	children
-}: Readonly<{
+																		 children
+																	 }: Readonly<{
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='ru'>
-			<body>
-				<Provider>
-					<Header />
-					<main>{children}</main>
-					<Footer />
-					<ToastContainer position='top-right' className='toast__custom' />
-				</Provider>
-			</body>
+		<html lang="ru">
+		<body>
+		<Provider>
+			<Header />
+			<main>{children}</main>
+			<Footer />
+			<ToastContainer position="top-right" className="toast__custom" />
+		</Provider>
+		</body>
 		</html>
 	)
 }

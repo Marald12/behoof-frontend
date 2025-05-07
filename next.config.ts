@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'http',
 				hostname: 'localhost',
-				port: '4002'
+				port: '4003'
 			}
 		]
 	},
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: '/uploads/:path*',
-				destination: 'http://localhost:4002/uploads/:path*'
+				destination: 'http://localhost:4003/uploads/:path*'
 			}
 		]
 	}

@@ -22,7 +22,7 @@ const Header: FC = async () => {
 				</div>
 				<HeaderSearch />
 				<div className={styles.links}>
-					<Link href="">
+					<Link href="/likes">
 						<ButtonIcon>
 							<GoHeart size={24} color="#263141" />
 						</ButtonIcon>

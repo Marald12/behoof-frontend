@@ -12,7 +12,7 @@ import { ICatalogProps } from './catalog.interface'
 const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 	const [isMouseEvent, setIsMouseEvent] = useState('')
 	const [isMouseEventTwo, setIsMouseEventTwo] = useState('')
-	const [_, setIsMouseEventThree] = useState('')
+	const [, setIsMouseEventThree] = useState('')
 
 	const { data, isLoading } = useQuery({
 		queryKey: ['categoriesMenu'],

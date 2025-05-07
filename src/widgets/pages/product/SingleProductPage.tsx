@@ -16,7 +16,7 @@ import SingleProductMobileImage from '@/widgets/pages/product/image/mobile/Singl
 const SingleProductPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { data, isLoading } = useQuery({
-		queryKey: ['product'],
+		queryKey: ['product', id],
 		queryFn: () => productService.findProductById(id)
 	})
 	const product = data?.data?.findProductById

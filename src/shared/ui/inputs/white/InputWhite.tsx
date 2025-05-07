@@ -5,9 +5,9 @@ import styles from './InputWhite.module.scss'
 
 const InputWhite = forwardRef<HTMLInputElement, IInput>(
 	({ className, label, error, ...props }, ref) => {
-		if (label || error) {
-			const id = useId()
+		const id = useId()
 
+		if (label || error) {
 			return (
 				<div className={styles.wrapper}>
 					<label htmlFor={`white-input-${id}`}>{label}</label>

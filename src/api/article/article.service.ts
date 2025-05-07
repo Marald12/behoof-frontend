@@ -10,8 +10,8 @@ export const articleService = {
 		search?: string,
 		categoryId?: string,
 		tag?: string[]
-	}): IApi<FindAllArticlesQuery> {
-		const request = await axiosMain().post<IApi<FindAllArticlesQuery>>('', {
+	}): Promise<IApi<FindAllArticlesQuery>> {
+		const request = await axiosMain().post('', {
 			query: findAllArticlesSchema,
 			variables: dto
 		})

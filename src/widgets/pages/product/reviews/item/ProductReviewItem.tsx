@@ -12,7 +12,7 @@ const ProductReviewItem: FC<IReviewItemProps> = ({ review }) => {
 	return (
 		<div className={styles.item}>
 			<div className={styles.item__header}>
-				<Image src={userAvatar} alt={userAvatar} width={48} height={48} />
+				<Image src={userAvatar} alt="User avatar" width={48} height={48} />
 				<div>
 					<span>{review.user.name}</span>
 					<div>{countFiveArray.map(i => <GoStarFill

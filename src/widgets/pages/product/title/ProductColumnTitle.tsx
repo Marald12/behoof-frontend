@@ -15,6 +15,8 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 	const { memory, setMemory, color, setColor } = useContext(ProductContext)
 	const arrayFive = Array.from({ length: 5 }).map((_, i) => i + 1)
 
+	const memoryArray = product?.characteristics.memory as number[] | undefined
+
 	useEffect(() => {
 		setMemory(product?.characteristics.memory[0])
 		if (product?.colors) setColor(product.colors[0].title)
@@ -33,11 +35,11 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 				<div className={styles.rating}>
 					{product?.rating}.0{' '}
 					<div className={styles.rating__stars}>
-						{arrayFive.map(i => (
+						{product && arrayFive.map(i => (
 							<GoStarFill
 								key={`star-item-${i}`}
 								size={21}
-								color={i <= product?.rating ? '#FF4D4D' : '#C3CAD4'}
+								color={i <= product.rating ? '#FF4D4D' : '#C3CAD4'}
 							/>
 						))}
 					</div>
@@ -138,7 +140,7 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 				<div>
 					<h4>Память:</h4>
 					<div className={styles.memory}>
-						{product?.characteristics.memory?.map(i => (
+						{memoryArray && memoryArray.map(i => (
 							<div
 								key={`memory-product-${i}`}
 								className={cn(i === memory && styles.active)}

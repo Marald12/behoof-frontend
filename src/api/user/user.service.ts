@@ -24,69 +24,63 @@ import { addProductToFavoriteSchema } from '@/api/user/schemas/add-product-to-fa
 import { removeProductFromFavoriteSchema } from '@/api/user/schemas/remove-product-to-favorite.schema'
 
 export const userService = {
-	async fetchProfile(cookiesHeader?: RequestCookie) {
-		const request = await axiosMain(cookiesHeader).post<IApi<GetProfileQuery>>(
-			'',
-			{
-				query: profileSchema
-			}
-		)
+	async fetchProfile(cookiesHeader?: RequestCookie): Promise<IApi<GetProfileQuery>> {
+		const request = await axiosMain(cookiesHeader).post('', {
+			query: profileSchema
+		})
 
 		return request.data
 	},
-	async updateUser(data: { country?: string; city?: string; name?: string }) {
-		const request = await axiosMain().post<IApi<UpdateUserMutation>>('', {
+
+	async updateUser(data: { country?: string; city?: string; name?: string }): Promise<IApi<UpdateUserMutation>> {
+		const request = await axiosMain().post('', {
 			query: updateUserSchema,
 			variables: { body: data }
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
-
 		return request.data
 	},
-	async logout() {
-		const request = await axiosMain().post<IApi<LogoutMutation>>('', {
+
+	async logout(): Promise<IApi<LogoutMutation>> {
+		const request = await axiosMain().post('', {
 			query: logoutSchema
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
-
 		return request.data
 	},
-	async createTokenAndSendEmail() {
-		const request = await axiosMain().post<
-			IApi<CreateTokenAndSendEmailMutation>
-		>('', {
+
+	async createTokenAndSendEmail(): Promise<IApi<CreateTokenAndSendEmailMutation>> {
+		const request = await axiosMain().post('', {
 			query: createTokenAndSendEmailSchema
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
-
 		return request.data
 	},
-	async findByEmailAndCreateAndSendEmail(email: string) {
-		const request = await axiosMain().post<
-			IApi<FindByEmailAndCreateAndSendEmailMutation>
-		>('', {
+
+	async findByEmailAndCreateAndSendEmail(email: string): Promise<IApi<FindByEmailAndCreateAndSendEmailMutation>> {
+		const request = await axiosMain().post('', {
 			query: findByEmailAndCreateAndSendEmailSchema,
 			variables: { email }
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
-
 		return request.data
 	},
-	async changePassword(token: string, password: string) {
-		const request = await axiosMain().post<IApi<ChangePasswordMutation>>('', {
+
+	async changePassword(token: string, password: string): Promise<IApi<ChangePasswordMutation>> {
+		const request = await axiosMain().post('', {
 			query: changePasswordQuery,
 			variables: { token, password }
 		})
 
 		if (request.data.errors) toast.error(request.data.errors[0].message)
-
 		return request.data
 	},
-	async checkToken(token: string) {
+
+	async checkToken(token: string): Promise<any> {
 		try {
 			const request = await axiosMain().post('', {
 				query: checkTokenSchema,
@@ -95,37 +89,35 @@ export const userService = {
 
 			return request.data
 		} catch (e) {
-			//@ts-ignore
+			// @ts-ignore
 			console.log(e.response.data)
 		}
 	},
-	async addProductToFavorite(id: string) {
+
+	async addProductToFavorite(id: string): Promise<IApi<AddProductToFavoriteMutation> | undefined> {
 		try {
-			const request = await axiosMain().post<
-				IApi<AddProductToFavoriteMutation>
-			>('', {
+			const request = await axiosMain().post('', {
 				query: addProductToFavoriteSchema,
 				variables: { id }
 			})
 
 			return request.data
 		} catch (e) {
-			//@ts-ignore
+			// @ts-ignore
 			console.log(e.response.data)
 		}
 	},
-	async removeProductFromFavorite(id: string) {
+
+	async removeProductFromFavorite(id: string): Promise<IApi<RemoveProductFromFavoriteMutation> | undefined> {
 		try {
-			const request = await axiosMain().post<
-				IApi<RemoveProductFromFavoriteMutation>
-			>('', {
+			const request = await axiosMain().post('', {
 				query: removeProductFromFavoriteSchema,
 				variables: { id }
 			})
 
 			return request.data
 		} catch (e) {
-			//@ts-ignore
+			// @ts-ignore
 			console.log(e.response.data)
 		}
 	}

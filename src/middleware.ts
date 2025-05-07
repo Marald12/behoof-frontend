@@ -31,8 +31,11 @@ export async function middleware(req: NextRequest) {
 	if (isAuth && path === '/register') {
 		return NextResponse.redirect(new URL('/profile', req.url))
 	}
-	if (!isAuth && ['/profile'].some(route => path.startsWith(route))) {
-		return NextResponse.redirect(new URL('/', req.url))
+	if (!isAuth && ['/profile', '/likes'].some(route => path.startsWith(route))) {
+		const url = new URL('/', req.url)
+		url.searchParams.set('error', 'unauthorized')
+		
+		return NextResponse.redirect(url)
 	}
 
 	return NextResponse.next()
@@ -42,6 +45,7 @@ export const config = {
 	matcher: [
 		'/profile',
 		'/profile/:path*',
+		'/likes',
 		'/login',
 		'/register',
 		'/restore-password/:path*'
