@@ -4,6 +4,9 @@ import Header from '@/widgets/header/Header'
 import Footer from '@/widgets/footer/Footer'
 import Provider from '@/features/provider/Provider'
 import { ToastContainer } from 'react-toastify'
+import Loader from '@/shared/ui/components/loader/Loader'
+import CheckToast from '@/features/check-toast/CheckToast'
+import React, { Suspense } from 'react'
 
 export const metadata: Metadata = {
 	title: 'Behoof - Лучшие цены в интернет-магазинах ',
@@ -22,6 +25,9 @@ export default function RootLayout({
 			<Header />
 			<main>{children}</main>
 			<Footer />
+			<Suspense fallback={<Loader />}>
+				<CheckToast />
+			</Suspense>
 			<ToastContainer position="top-right" className="toast__custom" />
 		</Provider>
 		</body>
