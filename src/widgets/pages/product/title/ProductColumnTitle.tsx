@@ -14,13 +14,16 @@ import { ProductContext } from '@/shared/contexts/productContext'
 const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 	const { memory, setMemory, color, setColor } = useContext(ProductContext)
 	const arrayFive = Array.from({ length: 5 }).map((_, i) => i + 1)
+	const ch = product?.characteristics
 
-	const memoryArray = product?.characteristics.memory as number[] | undefined
+	const memoryArray = ch.memory.value as number[] | undefined
+
+	console.log(ch.header)
 
 	useEffect(() => {
-		setMemory(product?.characteristics.memory[0])
+		setMemory(ch.memory[0])
 		if (product?.colors) setColor(product.colors[0].title)
-	}, [product?.characteristics.memory, product?.characteristics.colors])
+	}, [ch.memory.value, product?.colors])
 
 	return (
 		<div className={styles.column}>
@@ -30,7 +33,7 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 			</h4>
 			<div className={styles.column__title_rating}>
 				<div className={styles.answer__rating}>
-					{product?.characteristics.answerCount} Оценка экспертов
+					{ch.header.find(i => i.key === 'answerCount').value}.0 Оценка экспертов
 				</div>
 				<div className={styles.rating}>
 					{product?.rating}.0{' '}
@@ -48,72 +51,19 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 				</div>
 			</div>
 			<div className={styles.column__characteristics}>
-				<span>Дизайн</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`design-${i}`}
-							className={cn(
-								i <= product?.characteristics.designCount && styles.red
-							)}
-						/>
-					))}
-				</div>
-				<span>Батарея</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`battery-${i}`}
-							className={cn(
-								i <= product?.characteristics.batteryCount && styles.red
-							)}
-						/>
-					))}
-				</div>
-				<span>Дисплей</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`display-${i}`}
-							className={cn(
-								i <= product?.characteristics.displayCount && styles.red
-							)}
-						/>
-					))}
-				</div>
-				<span>Камера</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`camera-${i}`}
-							className={cn(
-								i <= product?.characteristics.cameraCount && styles.red
-							)}
-						/>
-					))}
-				</div>
-				<span>Ответ</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`answer-${i}`}
-							className={cn(
-								i <= product?.characteristics.answerCount && styles.red
-							)}
-						/>
-					))}
-				</div>
-				<span>Портативность</span>
-				<div>
-					{arrayFive.map(i => (
-						<div
-							key={`portability-${i}`}
-							className={cn(
-								i <= product?.characteristics.portabilityCount && styles.red
-							)}
-						/>
-					))}
-				</div>
+				{ch.header?.map(i => <div key={i.key}>
+					<span>{i.russianTranslate}</span>
+					<div>
+						{arrayFive.map(j => (
+							<div
+								key={`design-${j}`}
+								className={cn(
+									j <= i.value && styles.red
+								)}
+							/>
+						))}
+					</div>
+				</div>)}
 			</div>
 			<div className={styles.column__price}>
 				<div>

@@ -8,108 +8,47 @@ const ProductCharacteristics: FC<IProductNoApiProps> = ({ product }) => {
 	const { memory, color } = useContext(ProductContext)
 	const [isShow, setIsShow] = useState(false)
 
+	const ch = product?.characteristics
+
 	return (
 		<>
 			<div className={styles.characteristics}>
-				<h4>Характеристики {product?.brand.title} {product?.title} {memory} ГБ{' '}
-					{color.toLocaleLowerCase()}</h4>
+				<h4>Характеристики {product?.brand.title} {product?.title} {memory} ГБ {color.toLowerCase()}</h4>
 				<div className={styles.characteristics__mini}>
-					<div>Камера <b>{product?.characteristics.camera} MPx</b></div>
-					<div>Система <b>{product?.characteristics.os}</b></div>
-					<div>Диагональ <b>{product?.characteristics.screen.diagonal}"</b></div>
-					<div>Зарядка <b>{product?.characteristics.chargingType}</b></div>
+					<div>{ch.camera.russianTranslate} <b>{ch.camera.value} MPx</b></div>
+					<div>{ch.os.russianTranslate} <b>{ch.os.value}</b></div>
+					<div>{ch.screen.diagonal.russianTranslate} <b>{ch.screen.diagonal.value}"</b></div>
+					<div>{ch.chargingType.russianTranslate} <b>{ch.chargingType.value}</b></div>
 				</div>
-				<span onClick={() => setIsShow(prev => !prev)}>Полный список характеристик <IoIosArrowDown color="#FF4D4D"
-																																																	 size={19} /></span>
+				<span onClick={() => setIsShow(prev => !prev)}>
+					Полный список характеристик <IoIosArrowDown color="#FF4D4D" size={19} />
+				</span>
+
 				{isShow && (
 					<div className={styles.characteristics__share}>
-						<h3>Заводские данные</h3>
-						<div>
-							<span>Тип</span>
-							<strong>{product?.characteristics.factoryData.type}</strong>
-						</div>
-						<div>
-							<span>Модель</span>
-							<strong>{product?.characteristics.factoryData.model}</strong>
-						</div>
-						<div>
-							<span>Год релиза</span>
-							<strong>{product?.characteristics.factoryData.year}</strong>
-						</div>
-						<h3>Экран</h3>
-						<div>
-							<span>Диагональ экрана (дюйм)</span>
-							<strong>{product?.characteristics.screen.diagonal}"</strong>
-						</div>
-						<div>
-							<span>Разрешение камеры</span>
-							<strong>{product?.characteristics.screen.resolutionCamera} мг</strong>
-						</div>
-						<div>
-							<span>Тип</span>
-							<strong>{product?.characteristics.screen.type}</strong>
-						</div>
-						<div>
-							<span>Плотность пикселей</span>
-							<strong>{product?.characteristics.screen.densityScreen} ppi</strong>
-						</div>
-						<div>
-							<span>Технология изготовления экрана</span>
-							<strong>{product?.characteristics.screen.screenManufacturingTechnology}</strong>
-						</div>
-						<div>
-							<span>Количество цветов экрана</span>
-							<strong>{product?.characteristics.screen.countColorsSreen} млн</strong>
-						</div>
-						<div>
-							<span>Конструктивные особенности экрана</span>
-							<strong>{product?.characteristics.screen.designFeaturesOfTheScreen} млн</strong>
-						</div>
-						<h3>Заводские данные</h3>
-						<div>
-							<span>Тип</span>
-							<strong>{product?.characteristics.factoryData.type}</strong>
-						</div>
-						<div>
-							<span>Модель</span>
-							<strong>{product?.characteristics.factoryData.model}</strong>
-						</div>
-						<div>
-							<span>Год релиза</span>
-							<strong>{product?.characteristics.factoryData.year}</strong>
-						</div>
-						<h3>Экран</h3>
-						<div>
-							<span>Диагональ экрана (дюйм)</span>
-							<strong>{product?.characteristics.screen.diagonal}"</strong>
-						</div>
-						<div>
-							<span>Разрешение камеры</span>
-							<strong>{product?.characteristics.screen.resolutionCamera} мг</strong>
-						</div>
-						<div>
-							<span>Тип</span>
-							<strong>{product?.characteristics.screen.type}</strong>
-						</div>
-						<div>
-							<span>Плотность пикселей</span>
-							<strong>{product?.characteristics.screen.densityScreen} ppi</strong>
-						</div>
-						<div>
-							<span>Технология изготовления экрана</span>
-							<strong>{product?.characteristics.screen.screenManufacturingTechnology}</strong>
-						</div>
-						<div>
-							<span>Количество цветов экрана</span>
-							<strong>{product?.characteristics.screen.countColorsSreen} млн</strong>
-						</div>
-						<div>
-							<span>Конструктивные особенности экрана</span>
-							<strong>{product?.characteristics.screen.designFeaturesOfTheScreen} млн</strong>
-						</div>
+						<h3>{ch.factoryData.russianTranslate}</h3>
+						{Object.entries(ch.factoryData).map(([key, val]: any) =>
+								key !== 'russianTranslate' && (
+									<div key={key}>
+										<span>{val.russianTranslate}</span>
+										<strong>{val.value}</strong>
+									</div>
+								)
+						)}
+
+						<h3>{ch.screen.russianTranslate}</h3>
+						{Object.entries(ch.screen).map(([key, val]: any) =>
+								key !== 'russianTranslate' && (
+									<div key={key}>
+										<span>{val.russianTranslate}</span>
+										<strong>{val.value}</strong>
+									</div>
+								)
+						)}
 					</div>
 				)}
 			</div>
+
 			<div className={styles.characteristics}>
 				<h4>Описание</h4>
 				<p>{product?.description}</p>

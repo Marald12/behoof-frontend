@@ -14,7 +14,7 @@ const PopularProductItem: FC<IPopularProductItemProps> = ({ product }) => {
 			<span className={styles.item__category}>{product.category.title}</span>
 			<h4
 				className={styles.item__title}>
-				{product.brand.title} {product.title} {product.characteristics.memory[0]} ГБ{' '}
+				{product.brand.title} {product.title} {product.characteristics.memory.value[0]} ГБ{' '}
 				{product.colors![0].title.toLowerCase()}
 			</h4>
 			<div className={styles.item__footer}>

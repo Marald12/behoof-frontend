@@ -76,30 +76,36 @@
     flex-direction: column;
     gap: 8px;
 
-    > span {
-      color: #7e8794;
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 20px;
-    }
-
     > div {
       display: flex;
-      gap: 2px;
+      flex-direction: column;
+      gap: 8px;
+
+      > span {
+        color: #7e8794;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+      }
 
       > div {
-        width: 132px;
-        height: 4px;
-        background: #eceeef;
-        border-radius: 2px;
+        display: flex;
+        gap: 2px;
 
-        @media (max-width: 1408px) {
-          width: 66px;
-        }
+        > div {
+          width: 132px;
+          height: 4px;
+          background: #eceeef;
+          border-radius: 2px;
 
-        &.red {
-          background: #ff4d4d;
+          @media (max-width: 1408px) {
+            width: 66px;
+          }
+
+          &.red {
+            background: #ff4d4d;
+          }
         }
       }
     }
