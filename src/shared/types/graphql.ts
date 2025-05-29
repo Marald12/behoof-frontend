@@ -124,8 +124,7 @@ export type AuthDto = {
 export type Brand = {
   __typename?: 'Brand';
   _count: BrandCount;
-  category: Category;
-  categoryId: Scalars['String']['output'];
+  categories?: Maybe<Array<Category>>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   products?: Maybe<Array<Product>>;
@@ -135,13 +134,13 @@ export type Brand = {
 
 export type BrandCount = {
   __typename?: 'BrandCount';
+  categories: Scalars['Int']['output'];
   products: Scalars['Int']['output'];
 };
 
 export type BrandCountAggregate = {
   __typename?: 'BrandCountAggregate';
   _all: Scalars['Int']['output'];
-  categoryId: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   title: Scalars['Int']['output'];
@@ -149,13 +148,12 @@ export type BrandCountAggregate = {
 };
 
 export type BrandDto = {
-  categoryId: Scalars['String']['input'];
+  categories: Array<Scalars['String']['input']>;
   title: Scalars['String']['input'];
 };
 
 export type BrandMaxAggregate = {
   __typename?: 'BrandMaxAggregate';
-  categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -164,7 +162,6 @@ export type BrandMaxAggregate = {
 
 export type BrandMinAggregate = {
   __typename?: 'BrandMinAggregate';
-  categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -998,7 +995,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: string };
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null, favoriteProducts?: Array<{ __typename?: 'Product', id: string, title: string, price: number, images?: Array<string> | null, category: { __typename?: 'Category', id: string, title: string } }> | null } };
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: string, email: string, name: string, city: string, country: string, questions?: Array<{ __typename?: 'Question', id: string, question: string, createdAt: any }> | null, favoriteProducts?: Array<{ __typename?: 'Product', id: string, title: string, price: number, images?: Array<string> | null, characteristics: any, category: { __typename?: 'Category', id: string, title: string }, colors?: Array<{ __typename?: 'Color', title: string }> | null, brand: { __typename?: 'Brand', title: string } }> | null } };
 
 export type RemoveProductFromFavoriteMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1281,6 +1278,13 @@ export const GetProfileDocument = gql`
       images
       category {
         id
+        title
+      }
+      colors {
+        title
+      }
+      characteristics
+      brand {
         title
       }
     }

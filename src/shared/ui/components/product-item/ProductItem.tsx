@@ -7,11 +7,13 @@ import { formatPrice } from '@/shared/utils/formatPrice'
 import ProductItemCharacteristic from '@/shared/ui/components/product-item/characteristic/ProductItemCharacteristic'
 import ButtonMain from '@/shared/ui/buttons/main/ButtonMain'
 import Link from 'next/link'
-import ProductItemButtonLike from '@/shared/ui/components/product-item/button-like/ProductItemButtonLike'
-import ProductItemButtonCompare from '@/shared/ui/components/product-item/button-compare/ProductItemButtonCompare'
+import ButtonLike from '@/shared/ui/buttons/button-like/ButtonLike'
+import ButtonCompare from '@/shared/ui/buttons/button-compare/ButtonCompare'
 
 const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 	const starArray = Array.from({ length: 5 }, (_, i) => i + 1)
+
+	const ch = product.characteristics
 
 	return (
 		<div className={styles.item}>
@@ -21,13 +23,15 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 				width={170}
 				height={200}
 				className={styles.main__image}
+				quality={100}
+				style={{ objectFit: 'contain' }}
 			/>
 			<div className={styles.item__content}>
 				<div className={styles.item__content_header}>
 					<div>{product.rating}.0 Оценка экспертов</div>
 					{product.reviews && (
 						<div>
-							{product.characteristics.answerCount}
+							{ch.answerCount}
 							{product.reviews && (
 								<>
 									<div className={styles.stars}>
@@ -36,7 +40,7 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 												key={`star-item-${i}`}
 												size={21}
 												color={
-													i <= product.characteristics.answerCount
+													i <= ch.header.find(i => i.key === 'answerCount').value
 														? '#FF4D4D'
 														: '#C3CAD4'
 												}
@@ -73,35 +77,35 @@ const ProductItem: FC<{ product: IProductItem }> = ({ product }) => {
 			</div>
 			<div className={styles.item__price}>
 				<div className={styles.item__price_buttons}>
-					<ProductItemButtonLike id={product.id} />
-					<ProductItemButtonCompare />
+					<ButtonLike id={product.id} />
+					<ButtonCompare id={product.id} />
 				</div>
 				<h2>{formatPrice(product.price)} ₴</h2>
 			</div>
 			<div className={styles.item__characteristics}>
 				<ProductItemCharacteristic
 					label="Дизайн"
-					count={product.characteristics.designCount}
+					count={ch.header.find(i => i.key === 'designCount').value}
 				/>
 				<ProductItemCharacteristic
 					label="Батарея"
-					count={product.characteristics.batteryCount}
+					count={ch.header.find(i => i.key === 'batteryCount').value}
 				/>
 				<ProductItemCharacteristic
 					label="Дисплей"
-					count={product.characteristics.displayCount}
+					count={ch.header.find(i => i.key === 'displayCount').value}
 				/>
 				<ProductItemCharacteristic
 					label="Камера"
-					count={product.characteristics.cameraCount}
+					count={ch.header.find(i => i.key === 'cameraCount').value}
 				/>
 				<ProductItemCharacteristic
 					label="Ответ"
-					count={product.characteristics.answerCount}
+					count={ch.header.find(i => i.key === 'answerCount').value}
 				/>
 				<ProductItemCharacteristic
 					label="Портативность"
-					count={product.characteristics.portabilityCount}
+					count={ch.header.find(i => i.key === 'portabilityCount').value}
 				/>
 				<Link href={`/product/${product.id}`}>
 					<ButtonMain>Перейти к товару</ButtonMain>

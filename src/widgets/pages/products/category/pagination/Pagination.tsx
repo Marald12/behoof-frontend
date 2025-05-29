@@ -12,9 +12,10 @@ const Pagination: FC<IProductCategoryInterfaceProps> = ({ setFilterDto }) => {
 		queryFn: () => productService.findAllProducts()
 	})
 	const [totalPages, setTotalPages] = useState(0)
+	const countProductForPage = 10
 
 	const pagesCountArray = Array.from(
-		{ length: Math.ceil(totalPages / 10) },
+		{ length: Math.ceil(totalPages / countProductForPage) },
 		(_, i) => i
 	)
 	const [activePage, setActivePage] = useState(0)
@@ -22,7 +23,7 @@ const Pagination: FC<IProductCategoryInterfaceProps> = ({ setFilterDto }) => {
 	useEffect(() => {
 		setFilterDto(prev => ({
 			...prev,
-			skip: activePage * 10
+			skip: activePage * countProductForPage
 		}))
 	}, [activePage])
 
@@ -57,7 +58,7 @@ const Pagination: FC<IProductCategoryInterfaceProps> = ({ setFilterDto }) => {
 			<span
 				onClick={() =>
 					setActivePage(prev => {
-						if (prev >= Math.ceil(totalPages / 10) - 1) return prev
+						if (prev >= Math.ceil(totalPages / countProductForPage) - 1) return prev
 
 						return prev + 1
 					})

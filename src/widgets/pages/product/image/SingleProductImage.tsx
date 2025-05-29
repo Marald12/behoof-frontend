@@ -67,6 +67,7 @@ const SingleProductImage: FC<IProductProps> = ({ product }) => {
 					alt={productImages[activeImage]}
 					width={350}
 					height={410}
+					style={{ objectFit: 'contain' }}
 				/>
 				<button onClick={clickRightHandler}>
 					<IoIosArrowForward color="#0F1113" size={21} />
@@ -75,7 +76,7 @@ const SingleProductImage: FC<IProductProps> = ({ product }) => {
 			<div className={styles.image__small_images} ref={ref2}>
 				{images.map(img => (
 					<div key={img}>
-						<Image src={img!} alt={img!} width={170} height={222} />
+						<Image src={img!} alt={img!} width={170} height={222} style={{ objectFit: 'contain' }} />
 					</div>
 				))}
 			</div>

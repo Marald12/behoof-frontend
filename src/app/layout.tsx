@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/assets/styles/globals.scss'
 import Header from '@/widgets/header/Header'
 import Footer from '@/widgets/footer/Footer'
-import Provider from '@/features/provider/Provider'
+import CustomProvider from '@/features/provider/Provider'
 import { ToastContainer } from 'react-toastify'
 import Loader from '@/shared/ui/components/loader/Loader'
 import CheckToast from '@/features/check-toast/CheckToast'
@@ -21,7 +21,7 @@ export default function RootLayout({
 	return (
 		<html lang="ru">
 		<body>
-		<Provider>
+		<CustomProvider>
 			<Header />
 			<main>{children}</main>
 			<Footer />
@@ -29,7 +29,7 @@ export default function RootLayout({
 				<CheckToast />
 			</Suspense>
 			<ToastContainer position="top-right" className="toast__custom" />
-		</Provider>
+		</CustomProvider>
 		</body>
 		</html>
 	)

@@ -5,10 +5,7 @@ import Nav from '@/features/nav/Nav'
 import { useParams, useSearchParams } from 'next/navigation'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { categoryService } from '@/api/category/category.service'
-import {
-	FilterProductsParams,
-	productService
-} from '@/api/products/product.service'
+import { FilterProductsParams, productService } from '@/api/products/product.service'
 import Loader from '@/shared/ui/components/loader/Loader'
 import 'react-range-slider-input/dist/style.css'
 import Toggle from '@/shared/ui/toggle/Toggle'
@@ -29,20 +26,20 @@ const ProductCategoryPage: FC = () => {
 	const searchParams = useSearchParams()
 	const defaultBrandId = searchParams.get('brand')
 	const { data, isLoading } = useQuery({
-		queryKey: ['category'],
+		queryKey: ['category', id],
 		queryFn: () => categoryService.findByIdCategory(String(id))
 	})
 	const [filterDto, setFilterDto] = useState<FilterProductsParams>({
 		brands: undefined,
 		category: String(id),
 		battery: 0,
-		maxPrice: 100000,
+		maxPrice: 999999,
 		memory: undefined,
 		minPrice: 0,
 		screen: undefined,
 		portabilityCount: 0,
 		allRating: 0,
-		take: 2,
+		take: 10,
 		skip: 0
 	})
 	const {
@@ -50,7 +47,7 @@ const ProductCategoryPage: FC = () => {
 		isLoading: productIsLoading,
 		isFetching
 	} = useQuery({
-		queryKey: ['filterProducts'],
+		queryKey: ['filterProducts', id],
 		queryFn: () =>
 			productService.filterProducts({
 				...filterDto
@@ -62,7 +59,7 @@ const ProductCategoryPage: FC = () => {
 	useEffect(() => {
 		queryClient
 			.invalidateQueries({
-				queryKey: ['filterProducts']
+				queryKey: ['filterProducts', id]
 			})
 			.then()
 	}, [filterDto])
@@ -93,7 +90,7 @@ const ProductCategoryPage: FC = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<div className='container'>
+			<div className="container">
 				<Nav links={[{ href: '/products/', title: 'Смартфоны' }]} />
 				<h4>{data?.data && data.data.findByIdCategory.title}</h4>
 				<div className={styles.filter}>
@@ -101,9 +98,9 @@ const ProductCategoryPage: FC = () => {
 						<h4>Фильтрация</h4>
 						<div>
 							{isHidden ? (
-								<TiArrowSortedUp size={20} color='#2B3A4E' />
+								<TiArrowSortedUp size={20} color="#2B3A4E" />
 							) : (
-								<TiArrowSortedDown size={20} color='#2B3A4E' />
+								<TiArrowSortedDown size={20} color="#2B3A4E" />
 							)}
 						</div>
 					</div>
@@ -120,9 +117,9 @@ const ProductCategoryPage: FC = () => {
 								/>
 								<div className={styles.additionally}>
 									<h4>Дополнительно</h4>
-									<Toggle label='Есть' />
-									<Toggle label='Есть' />
-									<Toggle label='Есть' />
+									<Toggle label="Есть" />
+									<Toggle label="Есть" />
+									<Toggle label="Есть" />
 								</div>
 							</div>
 							<div className={styles.column}>

@@ -27,7 +27,7 @@ const Header: FC = async () => {
 							<GoHeart size={24} color="#263141" />
 						</ButtonIcon>
 					</Link>
-					<Link href="">
+					<Link href="/compare">
 						<ButtonIcon>
 							<TbBrandGoogleAnalytics size={24} color="#263141" />
 						</ButtonIcon>

@@ -33,7 +33,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "types"
+    "types",
+    "./src/features/redux/**/*.ts",
+    "./src/features/redux/*.ts"
   ],
   "exclude": [
     "node_modules"

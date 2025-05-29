@@ -22,6 +22,13 @@ export const profileSchema = gql`
                     id
                     title
                 }
+                colors {
+                    title
+                }
+                characteristics
+                brand {
+                    title
+                }
             }
         }
     }

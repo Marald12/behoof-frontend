@@ -1,12 +1,13 @@
 'use client'
 import React, { FC } from 'react'
+import styles from './ButtonLike.module.scss'
 import { IoIosHeartEmpty } from 'react-icons/io'
-import styles from './ProductItemButtonLike.module.scss'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { userService } from '@/api/user/user.service'
 import { toast } from 'react-toastify'
+import cn from 'classnames'
 
-const ProductItemButtonLike: FC<{ id: string }> = ({ id }) => {
+const ButtonLike: FC<{ id: string, isActive?: boolean }> = ({ id, isActive = false }) => {
 	const queryClient = useQueryClient()
 	const { mutate: mutateAdd } = useMutation({
 		mutationFn: () => userService.addProductToFavorite(id),
@@ -32,10 +33,10 @@ const ProductItemButtonLike: FC<{ id: string }> = ({ id }) => {
 	})
 
 	return (
-		<button className={styles.button} onClick={() => mutateAdd()}>
-			<IoIosHeartEmpty size={24} />
+		<button className={cn(styles.button__like, !isActive && styles.no_active)} onClick={() => mutateAdd()}>
+			<IoIosHeartEmpty size={24} color={isActive ? '#ffffff' : '#000000'} />
 		</button>
 	)
 }
 
-export default ProductItemButtonLike
+export default ButtonLike
