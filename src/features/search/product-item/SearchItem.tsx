@@ -3,15 +3,15 @@ import { ISearchItemProps } from '@/features/search/product-item/search-item.int
 import styles from './SearchItem.module.scss'
 import Image from 'next/image'
 import { formatPrice } from '@/shared/utils/formatPrice'
-import ProductItemButtonCompare from '@/shared/ui/components/product-item/button-compare/ProductItemButtonCompare'
-import ProductItemButtonLike from '@/shared/ui/components/product-item/button-like/ProductItemButtonLike'
 import Link from 'next/link'
+import ButtonLike from '@/shared/ui/buttons/button-like/ButtonLike'
+import ButtonCompare from '@/shared/ui/buttons/button-compare/ButtonCompare'
 
 const SearchItem: FC<ISearchItemProps> = ({ product, setShow }) => {
 	return (
 		<div className={styles.item}>
 			<div className={styles.item__header}>
-				<Image src={product.images![0]} alt="product images one" width={109} height={128} />
+				<Image src={product.images![0]} alt="product images one" width={109} height={128} style={{ objectFit: 'contain' }} quality={100} />
 			</div>
 			<Link href={`/product/${product.id}`} onClick={() => setShow(false)} className={styles.item__content}>
 				<span>{product.category.title}</span>
@@ -24,8 +24,8 @@ const SearchItem: FC<ISearchItemProps> = ({ product, setShow }) => {
 					<h4>{formatPrice(product.price)} ₴</h4>
 				</div>
 				<div className={styles.item__footer_buttons}>
-					<ProductItemButtonLike id={product.id} />
-					<ProductItemButtonCompare />
+					<ButtonLike id={product.id} />
+					<ButtonCompare id={product.id} />
 				</div>
 			</div>
 		</div>

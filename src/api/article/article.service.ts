@@ -9,7 +9,7 @@ export const articleService = {
 		skip?: number,
 		search?: string,
 		categoryId?: string,
-		tag?: string[]
+		tag?: string
 	}): Promise<IApi<FindAllArticlesQuery>> {
 		const request = await axiosMain().post('', {
 			query: findAllArticlesSchema,

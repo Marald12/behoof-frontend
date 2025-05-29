@@ -7,6 +7,8 @@ export const findAllArticlesSchema = gql`
             id
             title
             banner
+            tags
+            createdAt
         }
     }
 `

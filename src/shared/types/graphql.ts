@@ -878,7 +878,7 @@ export type FindAllArticlesQueryVariables = Exact<{
 }>;
 
 
-export type FindAllArticlesQuery = { __typename?: 'Query', findAllArticles: Array<{ __typename?: 'Article', id: string, title: string, banner: string }> };
+export type FindAllArticlesQuery = { __typename?: 'Query', findAllArticles: Array<{ __typename?: 'Article', id: string, title: string, banner: string, tags?: Array<string> | null, createdAt: any }> };
 
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -1036,6 +1036,8 @@ export const FindAllArticlesDocument = gql`
     id
     title
     banner
+    tags
+    createdAt
   }
 }
     `;
