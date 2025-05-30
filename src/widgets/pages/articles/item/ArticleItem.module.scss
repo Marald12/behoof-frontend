@@ -1,0 +1,52 @@
+.item {
+  border-radius: 12px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    background: #F5F7FA;
+  }
+
+  > img {
+    border-radius: 12px;
+  }
+
+  > a {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    cursor: pointer;
+
+    > h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    > span {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 18px;
+      color: #B5B5B5;
+      margin-top: 8px;
+    }
+
+    > div {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+
+      > span {
+        background: #F6F7FA;
+        border-radius: 8px;
+        padding: 8px 12px;
+        color: #7E8794;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+      }
+    }
+  }
+}

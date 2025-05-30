@@ -10,6 +10,7 @@ import Loader from '@/shared/ui/components/loader/Loader'
 import { categoryService } from '@/api/category/category.service'
 import InputGray from '@/shared/ui/inputs/gray/InputGray'
 import useDebounce from '@/shared/hooks/useDebounce'
+import ArticleItem from '@/widgets/pages/articles/item/ArticleItem'
 
 const ArticlesPage: NextPage = () => {
 	const [currentTags, setCurrentTags] = useState<string[] | undefined>(undefined)
@@ -22,7 +23,7 @@ const ArticlesPage: NextPage = () => {
 		queryFn: () => articleService.findAll({
 			tag: currentTags?.join(','),
 			search: debounce,
-			category: currentCategory
+			categoryId: currentCategory
 		})
 	})
 
@@ -88,7 +89,7 @@ const ArticlesPage: NextPage = () => {
 			</div>
 			<div className={styles.content}>
 				{isLoading && <Loader />}
-				{data?.data?.findAllArticles.map((article) => <div key={article.id}>{article.title}</div>)}
+				{data?.data?.findAllArticles.map((article) => <ArticleItem article={article} key={article.id} />)}
 			</div>
 		</div>
 	)

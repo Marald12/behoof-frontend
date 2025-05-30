@@ -880,6 +880,13 @@ export type FindAllArticlesQueryVariables = Exact<{
 
 export type FindAllArticlesQuery = { __typename?: 'Query', findAllArticles: Array<{ __typename?: 'Article', id: string, title: string, banner: string, tags?: Array<string> | null, createdAt: any }> };
 
+export type FindArticleByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindArticleByIdQuery = { __typename?: 'Query', findArticleById: { __typename?: 'Article', id: string, title: string, viewsCount: number, tags?: Array<string> | null, createdAt: any, banner: string, category: { __typename?: 'Category', id: string, title: string }, comments?: Array<{ __typename?: 'Comment', id: string, comment: string, user: { __typename?: 'User', id: string, name: string } }> | null, content?: Array<{ __typename?: 'ArticleContent', id: string, description: string, images?: Array<string> | null, title: string, types: ArticleContentTypes }> | null, user: { __typename?: 'User', id: string, name: string } } };
+
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -1038,6 +1045,41 @@ export const FindAllArticlesDocument = gql`
     banner
     tags
     createdAt
+  }
+}
+    `;
+export const FindArticleByIdDocument = gql`
+    query findArticleById($id: String!) {
+  findArticleById(id: $id) {
+    id
+    title
+    viewsCount
+    tags
+    createdAt
+    banner
+    category {
+      id
+      title
+    }
+    comments {
+      id
+      comment
+      user {
+        id
+        name
+      }
+    }
+    content {
+      id
+      description
+      images
+      title
+      types
+    }
+    user {
+      id
+      name
+    }
   }
 }
     `;
@@ -1340,6 +1382,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     findAllArticles(variables?: FindAllArticlesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllArticlesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindAllArticlesQuery>(FindAllArticlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllArticles', 'query', variables);
+    },
+    findArticleById(variables: FindArticleByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindArticleByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FindArticleByIdQuery>(FindArticleByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findArticleById', 'query', variables);
     },
     loginUser(variables: LoginUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LoginUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LoginUserMutation>(LoginUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'loginUser', 'mutation', variables);

@@ -1,0 +1,38 @@
+.wrapper {
+  > h1 {
+    margin-top: 32px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 64px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    &__user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      > img {
+        border-radius: 50%;
+      }
+
+      > span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 100%;
+        color: #263141;
+      }
+    }
+
+    &__counts {
+    }
+
+    &__tags {
+    }
+  }
+}
