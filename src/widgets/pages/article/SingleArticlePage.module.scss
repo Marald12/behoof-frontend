@@ -30,9 +30,146 @@
     }
 
     &__counts {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      > span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 100%;
+        color: #B5B5B5;
+
+        display: flex;
+        align-items: center;
+
+        > svg {
+          margin-right: 4px;
+        }
+      }
     }
 
     &__tags {
+      display: flex;
+      gap: 16px;
+
+      > div {
+        height: 40px;
+        border-radius: 20px;
+        padding: 8px 17px;
+        border: 1px solid #FF4D4D;
+        color: #1F074D;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 130%;
+      }
+    }
+  }
+
+  > img {
+    margin-top: 16px;
+    border-radius: 12px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 50px;
+
+    > div {
+      > h4 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 28px;
+        color: #263141;
+      }
+
+      > p,
+      > ul > li {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #0F1113;
+      }
+
+      > p {
+        margin-top: 20px;
+      }
+
+      > ul {
+        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+
+        > li {
+          position: relative;
+
+          &::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #FF4D4D;
+            position: absolute;
+            left: -15px;
+            top: 7px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      > div {
+        display: flex;
+        gap: 20px;
+        margin-top: 24px;
+
+        > img {
+          border-radius: 12px;
+        }
+      }
+    }
+  }
+
+  .comments {
+    > h4 {
+      margin-top: 40px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 28px;
+      color: #263141;
+    }
+
+    &__input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 20px;
+
+      > textarea {
+        width: 100%;
+      }
+
+      > button {
+        width: 40px;
+        height: 40px;
+        background: #DFE4EA;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
     }
   }
 }

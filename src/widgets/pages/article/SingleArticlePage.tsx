@@ -8,6 +8,12 @@ import Nav from '@/features/nav/Nav'
 import cn from 'classnames'
 import Image from 'next/image'
 import avatarImg from '@/assets/images/user-avatar.png'
+import dayjs from 'dayjs'
+import 'dayjs/locale/ru'
+import { IoEyeSharp } from 'react-icons/io5'
+import { PiTimer } from 'react-icons/pi'
+import TextArea from '@/shared/ui/inputs/textarea/TextArea'
+import { RiSendPlaneFill } from 'react-icons/ri'
 
 const SingleArticlePage: FC = () => {
 	const { id } = useParams()
@@ -19,6 +25,12 @@ const SingleArticlePage: FC = () => {
 
 	const article = data?.data?.findArticleById
 
+	const timeReading = Math.ceil(
+		article?.content?.map(i => `${i.title} ${i.description}`)
+			.map(i => i.length)
+			.reduce((a, b) => a + b) / 250
+	)
+
 	return (
 		<div className={cn(styles.wrapper, 'container')}>
 			<Nav links={[{ href: '/articles', title: 'Статьи' }, { href: `/article/${id}`, title: 'Статья' }]} />
@@ -28,8 +40,46 @@ const SingleArticlePage: FC = () => {
 					<Image src={avatarImg} alt={avatarImg} width={40} height={40} />
 					<span>{article?.user.name}</span>
 				</div>
-				<div className={styles.header__counts}></div>
-				<div className={styles.header__tags}></div>
+				<div className={styles.header__counts}>
+					<span>{dayjs(article?.createdAt).locale('ru').format('D MMMM YYYY[г.]')}</span>
+					<span><IoEyeSharp color="#B5B5B5" /> {article?.viewsCount} прочтений</span>
+					<span><PiTimer color="#B5B5B5" /> Время прочтения: {timeReading} мин.</span>
+				</div>
+				<div className={styles.header__tags}>
+					<div>{article?.category.title}</div>
+					{article?.tags?.map(tag => <div key={`tagggg-${tag}`}>{tag}</div>)}
+				</div>
+			</div>
+			{article?.banner && (
+				<Image src={article.banner} alt={String(article.banner)}
+							 width={0}
+							 height={0}
+							 sizes="100vw"
+							 style={{ width: '100%', height: 'auto', maxHeight: '600px', objectFit: 'cover' }}
+							 quality={100}
+				/>
+			)}
+			<div className={styles.content}>
+				{article?.content?.map(item => <div key={item.id}>
+					<h4>{item.title}</h4>
+					{item.types === 'TEXT' && <p>{item.description}</p>}
+					{item.types === 'LIST' && <ul>{item.description.split('|').map(i => <li key={i}>{i}</li>)}</ul>}
+					<div>
+						{item.images && item.images.map(i => <Image src={i} alt={i} width={0} height={350} quality={100}
+																												sizes="100vw"
+																												style={{
+																													width: '100%',
+																													objectFit: 'cover'
+																												}} key={i} />)}
+					</div>
+				</div>)}
+			</div>
+			<div className={styles.comments}>
+				<h4>Комментарии</h4>
+				<div className={styles.comments__input}>
+					<TextArea placeholder="Написать комментарий" />
+					<button><RiSendPlaneFill size={18} color="#ffffff" /></button>
+				</div>
 			</div>
 		</div>
 	)

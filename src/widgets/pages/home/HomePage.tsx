@@ -36,7 +36,7 @@ const HomePage: NextPage = () => {
 						смартфонов 2023 года
 					</h2>
 					<div>
-						<Link href="/article/123">
+						<Link href="/articles">
 							<ButtonMain>Смотреть <MdKeyboardArrowRight color="#fff" size={21} /></ButtonMain>
 						</Link>
 					</div>
