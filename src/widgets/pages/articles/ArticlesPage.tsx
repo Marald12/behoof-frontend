@@ -41,7 +41,7 @@ const ArticlesPage: NextPage = () => {
 
 	return (
 		<div className={cn(styles.wrapper, 'container')}>
-			<Nav links={[{ href: '/articles', title: 'Статьи' }]} />
+			<Nav links={[{ href: 'articles', title: 'Статьи' }]} />
 			<h2>Статьи</h2>
 			<div className={styles.header}>
 				<div className={styles.header__search}>

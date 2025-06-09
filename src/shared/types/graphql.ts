@@ -629,6 +629,12 @@ export type QueryFindReviewByIdArgs = {
 };
 
 
+export type QueryGetCategoriesForMenuArgs = {
+  brandId: Scalars['String']['input'];
+  categoryId: Scalars['String']['input'];
+};
+
+
 export type QuerySearchProductsArgs = {
   search: Scalars['String']['input'];
 };
@@ -907,7 +913,10 @@ export type FindAllBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindAllBrandsQuery = { __typename?: 'Query', findAllBrands: Array<{ __typename?: 'Brand', id: string, title: string }> };
 
-export type GetCategoriesForMenuQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCategoriesForMenuQueryVariables = Exact<{
+  brandId: Scalars['String']['input'];
+  categoryId: Scalars['String']['input'];
+}>;
 
 
 export type GetCategoriesForMenuQuery = { __typename?: 'Query', getCategoriesForMenu: Array<{ __typename?: 'Category', id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string, products?: Array<{ __typename?: 'Product', id: string, title: string }> | null }> | null }> };
@@ -923,6 +932,14 @@ export type FindAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindAllCategoriesQuery = { __typename?: 'Query', findAllCategories: Array<{ __typename?: 'Category', banner: string, id: string, title: string, brands?: Array<{ __typename?: 'Brand', id: string, title: string }> | null }> };
+
+export type CreateCommentMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  comment: Scalars['String']['input'];
+}>;
+
+
+export type CreateCommentMutation = { __typename?: 'Mutation', createComment: { __typename?: 'Comment', id: string, comment: string } };
 
 export type FilterProductsQueryVariables = Exact<{
   brands?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
@@ -1110,8 +1127,8 @@ export const FindAllBrandsDocument = gql`
 }
     `;
 export const GetCategoriesForMenuDocument = gql`
-    query getCategoriesForMenu {
-  getCategoriesForMenu {
+    query getCategoriesForMenu($brandId: String!, $categoryId: String!) {
+  getCategoriesForMenu(brandId: $brandId, categoryId: $categoryId) {
     id
     title
     brands {
@@ -1143,6 +1160,14 @@ export const FindAllCategoriesDocument = gql`
       id
       title
     }
+  }
+}
+    `;
+export const CreateCommentDocument = gql`
+    mutation createComment($id: String!, $comment: String!) {
+  createComment(body: {comment: $comment, articleId: $id}) {
+    id
+    comment
   }
 }
     `;
@@ -1395,7 +1420,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     findAllBrands(variables?: FindAllBrandsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllBrandsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindAllBrandsQuery>(FindAllBrandsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllBrands', 'query', variables);
     },
-    getCategoriesForMenu(variables?: GetCategoriesForMenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCategoriesForMenuQuery> {
+    getCategoriesForMenu(variables: GetCategoriesForMenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCategoriesForMenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCategoriesForMenuQuery>(GetCategoriesForMenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCategoriesForMenu', 'query', variables);
     },
     findByIdCategory(variables: FindByIdCategoryQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindByIdCategoryQuery> {
@@ -1403,6 +1428,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     findAllCategories(variables?: FindAllCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FindAllCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FindAllCategoriesQuery>(FindAllCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'findAllCategories', 'query', variables);
+    },
+    createComment(variables: CreateCommentMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateCommentMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateCommentMutation>(CreateCommentDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createComment', 'mutation', variables);
     },
     filterProducts(variables?: FilterProductsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FilterProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FilterProductsQuery>(FilterProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'filterProducts', 'query', variables);

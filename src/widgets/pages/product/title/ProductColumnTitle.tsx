@@ -33,37 +33,38 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 			</h4>
 			<div className={styles.column__title_rating}>
 				<div className={styles.answer__rating}>
-					{ch.header.find(i => i.key === 'answerCount').value}.0 Оценка экспертов
+					{ch.header.find((i: any) => i.key === 'answerCount').value}.0 Оценка
+					экспертов
 				</div>
 				<div className={styles.rating}>
 					{product?.rating}.0{' '}
 					<div className={styles.rating__stars}>
-						{product && arrayFive.map(i => (
-							<GoStarFill
-								key={`star-item-${i}`}
-								size={21}
-								color={i <= product.rating ? '#FF4D4D' : '#C3CAD4'}
-							/>
-						))}
-					</div>
-					{' '}
+						{product &&
+							arrayFive.map(i => (
+								<GoStarFill
+									key={`star-item-${i}`}
+									size={21}
+									color={i <= product.rating ? '#FF4D4D' : '#C3CAD4'}
+								/>
+							))}
+					</div>{' '}
 					{product?.reviews?.length || 0} Отзывов
 				</div>
 			</div>
 			<div className={styles.column__characteristics}>
-				{ch.header?.map(i => <div key={i.key}>
-					<span>{i.russianTranslate}</span>
-					<div>
-						{arrayFive.map(j => (
-							<div
-								key={`design-${j}`}
-								className={cn(
-									j <= i.value && styles.red
-								)}
-							/>
-						))}
+				{ch.header?.map((i: any) => (
+					<div key={i.key}>
+						<span>{i.russianTranslate}</span>
+						<div>
+							{arrayFive.map(j => (
+								<div
+									key={`design-${j}`}
+									className={cn(j <= i.value && styles.red)}
+								/>
+							))}
+						</div>
 					</div>
-				</div>)}
+				))}
 			</div>
 			<div className={styles.column__price}>
 				<div>
@@ -90,21 +91,22 @@ const ProductColumnTitle: FC<IProductNoApiProps> = ({ product }) => {
 				<div>
 					<h4>Память:</h4>
 					<div className={styles.memory}>
-						{memoryArray && memoryArray.map(i => (
-							<div
-								key={`memory-product-${i}`}
-								className={cn(i === memory && styles.active)}
-								onClick={() => setMemory(i)}
-							>
-								{i}
-							</div>
-						))}
+						{memoryArray &&
+							memoryArray.map(i => (
+								<div
+									key={`memory-product-${i}`}
+									className={cn(i === memory && styles.active)}
+									onClick={() => setMemory(i)}
+								>
+									{i}
+								</div>
+							))}
 					</div>
 				</div>
 			</div>
 			<div className={styles.column__buttons}>
 				<Link href={``}>
-					<ButtonBigCompare />
+					<ButtonBigCompare id={String(product?.id)} />
 				</Link>
 				<ButtonBigLike id={String(product?.id)} />
 			</div>

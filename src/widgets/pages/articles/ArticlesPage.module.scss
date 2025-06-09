@@ -12,6 +12,7 @@
     justify-content: space-between;
     margin-top: 16px;
     gap: 20px;
+    flex-wrap: wrap;
 
     &__search, &__tags {
       flex: 50%;
@@ -26,6 +27,11 @@
           color: #FF4D4D;
         }
       }
+    }
+
+    &__tags > div {
+      display: flex;
+      flex-wrap: wrap;
     }
 
     &__search > input {
@@ -61,6 +67,7 @@
     display: flex;
     margin-top: 44px;
     gap: 16px;
+    flex-wrap: wrap;
 
     > button {
       border: 1px solid #FF4D4D;

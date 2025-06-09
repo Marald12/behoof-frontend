@@ -12,14 +12,18 @@ import { ICatalogProps } from './catalog.interface'
 const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 	const [isMouseEvent, setIsMouseEvent] = useState('')
 	const [isMouseEventTwo, setIsMouseEventTwo] = useState('')
-	const [, setIsMouseEventThree] = useState('')
 
 	const { data, isLoading } = useQuery({
-		queryKey: ['categoriesMenu'],
-		queryFn: () => categoryService.getForMenu()
+		queryKey: ['categoriesMenu', isMouseEventTwo, isMouseEvent],
+		queryFn: () => categoryService.getForMenu(isMouseEventTwo, isMouseEvent)
 	})
 
-	const selectedCategory = data?.data?.getCategoriesForMenu?.find(
+	const { data: categoriesData } = useQuery({
+		queryKey: ['categoriesMenuBrands'],
+		queryFn: () => categoryService.findAllCategories()
+	})
+
+	const selectedCategory = categoriesData?.data?.findAllCategories?.find(
 		item => item.id === isMouseEvent
 	)
 
@@ -48,7 +52,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 						{isLoading && <Loader />}
 						{data?.data && (
 							<div className={styles.items}>
-								{data.data.getCategoriesForMenu.map(item => (
+								{categoriesData?.data?.findAllCategories.map(item => (
 									<Link
 										key={item.id}
 										className={styles.items__item}
@@ -59,7 +63,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color="#2B3A4E" />
+										<FaCaretRight size={18} color='#2B3A4E' />
 									</Link>
 								))}
 							</div>
@@ -80,7 +84,7 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color="#2B3A4E" />
+										<FaCaretRight size={18} color='#2B3A4E' />
 									</Link>
 								))}
 						</div>
@@ -88,21 +92,22 @@ const Catalog: FC<ICatalogProps> = ({ isShow, ref, setIsShow }) => {
 					<div className={styles.catalog__window_container_column}>
 						<h4>{selectedProducts?.title}</h4>
 						<div className={styles.catalog__window_container_column}>
-							{selectedProducts &&
-								selectedProducts.products?.map(item => (
+							{data &&
+								data.data?.getCategoriesForMenu?.map(item => (
 									<Link
 										key={item.id}
 										className={styles.items__item}
-										onMouseEnter={() => {
-											setIsMouseEventThree(item.id)
-										}}
 										href={`/product/${item.id}`}
 										onClick={() => setIsShow(false)}
 									>
 										{item.title}
-										<FaCaretRight size={18} color="#2B3A4E" />
+										<FaCaretRight size={18} color='#2B3A4E' />
 									</Link>
 								))}
+							{data?.data?.getCategoriesForMenu &&
+								data.data?.getCategoriesForMenu.length <= 0 && (
+									<div>Ничего не найдено</div>
+								)}
 						</div>
 					</div>
 				</div>

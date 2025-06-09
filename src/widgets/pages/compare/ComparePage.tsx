@@ -26,7 +26,7 @@ const ComparePage: FC = () => {
 
 	return (
 		<div className={cn(styles.wrapper, 'container')}>
-			<Nav links={[{ href: '/compare', title: 'Сравнение' }]} />
+			<Nav links={[{ href: 'compare', title: 'Сравнение' }]} />
 			<div className={styles.title}>
 				<h2>Сравнение товаров</h2>
 				<span onClick={() => dispatch(clearProducts())}><CiTrash color="#A1ABB9" size={18} /> Удалить все списки</span>
@@ -43,7 +43,7 @@ const ComparePage: FC = () => {
 				{products.length > 0 && products.map(i => <CompareItem product={i} key={i.id} />)}
 				{products.length < 4 && <div className={styles.add__product}>
 					<div className={styles.add__product_header}>
-						<Link href='/products/925dbf93-713b-4ae7-8f63-5bb627ac99a0'>
+						<Link href="/products/925dbf93-713b-4ae7-8f63-5bb627ac99a0">
 							<button>Добавить товар</button>
 						</Link>
 					</div>

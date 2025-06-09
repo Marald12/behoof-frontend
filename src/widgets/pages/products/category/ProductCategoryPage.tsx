@@ -91,7 +91,7 @@ const ProductCategoryPage: FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className="container">
-				<Nav links={[{ href: '/products/', title: 'Смартфоны' }]} />
+				<Nav links={[{ href: 'products', title: 'Смартфоны' }]} />
 				<h4>{data?.data && data.data.findByIdCategory.title}</h4>
 				<div className={styles.filter}>
 					<div className={styles.filter__title} onClick={setHiddenHandler}>
