@@ -1,0 +1,163 @@
+@mixin text {
+	> h5 {
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 28px;
+		line-height: 28px;
+		color: #263141;
+
+		@media (max-width: 600px) {
+			font-size: 20px;
+		}
+	}
+
+	> p {
+		margin-top: 20px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		color: #0f1113;
+	}
+}
+
+.wrapper {
+	> h3 {
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 40px;
+		line-height: 64px;
+		color: #263141;
+		margin: 32px 0;
+
+		@media (max-width: 800px) {
+			margin: 20px 0;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 28px;
+		}
+	}
+
+	.how_to_chase {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+
+		@media (max-width: 950px) {
+			flex-wrap: wrap;
+		}
+
+		> div {
+			max-width: 710px;
+
+			@include text;
+		}
+
+		> img {
+			border-radius: 12px;
+
+			@media (max-width: 517px) {
+				width: 343px;
+				height: 260px;
+			}
+		}
+	}
+
+	.properties {
+		display: flex;
+		gap: 21px;
+		margin-top: 32px;
+
+		@media (max-width: 1050px) {
+			flex-wrap: wrap;
+		}
+
+		> div:nth-child(1) {
+			max-height: 335px;
+
+			> img {
+				display: block;
+			}
+
+			> div:nth-child(2) {
+				display: none;
+			}
+		}
+
+		&__text {
+			@include text;
+		}
+	}
+
+	.images {
+		margin-top: 32px;
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+
+		@media (max-width: 1271px) {
+			flex-wrap: wrap;
+		}
+
+		> p {
+			font-family: 'Inter', sans-serif;
+			font-weight: 600;
+			font-size: 28px;
+			line-height: 40px;
+			color: #263141;
+
+			@media (max-width: 600px) {
+				font-size: 20px;
+				line-height: 28px;
+			}
+		}
+
+		@media (max-width: 600px) {
+			.netbook {
+				width: 224px;
+				height: 139px;
+			}
+
+			.phone {
+				width: 163px;
+				height: 122px;
+			}
+		}
+	}
+
+	.ai {
+		margin-top: 38px;
+		display: flex;
+		gap: 20px;
+
+		@media (max-width: 1363px) {
+			flex-wrap: wrap;
+		}
+
+		> img {
+			border-radius: 12px;
+
+			@media (max-width: 500px) {
+				width: 343px;
+				height: 190px;
+				object-fit: cover;
+			}
+		}
+
+		> div {
+			@include text;
+		}
+	}
+
+	.prices {
+		@include text;
+		max-width: 709px;
+		margin-top: 80px;
+
+		> button {
+			margin-top: 32px;
+			width: 261px;
+			height: 52px;
+		}
+	}
+}

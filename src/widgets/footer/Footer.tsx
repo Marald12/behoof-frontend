@@ -35,11 +35,11 @@ const Footer: FC = () => {
 				</div>
 				<div className={styles.column}>
 					<span>Пользователю</span>
-					<Link href=''>Связаться с нами</Link>
+					<Link href='/profile'>Связаться с нами</Link>
 					<Link href=''>Поддерка пользователей</Link>
-					<Link href=''>FAQ & Руководства</Link>
+					<Link href='/privacy-policy'>FAQ & Руководства</Link>
 					<Link href='/privacy-policy'>Политика конфиденциальности</Link>
-					<Link href=''>Пользовательское соглашение</Link>
+					<Link href='/privacy-policy'>Пользовательское соглашение</Link>
 				</div>
 				<div className={styles.column}>
 					<span>Популярные категории</span>
@@ -51,8 +51,8 @@ const Footer: FC = () => {
 				</div>
 				<div className={styles.column}>
 					<span>Команда Behoof</span>
-					<Link href=''>О нас</Link>
-					<Link href=''>Робота у нас</Link>
+					<Link href='/about-us'>О нас</Link>
+					<Link href='/about-us'>Робота у нас</Link>
 				</div>
 			</div>
 			<div className={styles.copyright}>
