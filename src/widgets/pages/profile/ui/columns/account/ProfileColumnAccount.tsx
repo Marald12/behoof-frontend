@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { userService } from '@/api/user/user.service'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
 
 const ProfileColumnAccount: FC = () => {
 	const queryClient = useQueryClient()
@@ -42,11 +43,17 @@ const ProfileColumnAccount: FC = () => {
 	return (
 		<div className={styles.column}>
 			<h4>Ваш аккаунт</h4>
+			<div>
+				<Link href='/likes'>Избранные товары</Link>
+			</div>
+			<div>
+				<Link href='/compare'>Сравнение товаров</Link>
+			</div>
+			<div onClick={reloadProfileClickHandler}>Обновить профиль</div>
 			<div onClick={() => !isPending && mutateResetPassword()}>
 				Сбросить пароль
 			</div>
 			<div onClick={() => mutate()}>Выйти</div>
-			<div onClick={reloadProfileClickHandler}>Обновить профиль</div>
 		</div>
 	)
 }

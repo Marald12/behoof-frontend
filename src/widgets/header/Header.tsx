@@ -22,20 +22,20 @@ const Header: FC = async () => {
 				</div>
 				<HeaderSearch />
 				<div className={styles.links}>
-					<Link href="/likes">
+					<Link href='/likes'>
 						<ButtonIcon>
-							<GoHeart size={24} color="#263141" />
+							<GoHeart size={24} color='#263141' />
 						</ButtonIcon>
 					</Link>
-					<Link href="/compare">
+					<Link href='/compare'>
 						<ButtonIcon>
-							<TbBrandGoogleAnalytics size={24} color="#263141" />
+							<TbBrandGoogleAnalytics size={24} color='#263141' />
 						</ButtonIcon>
 					</Link>
-					<Hydrate state={dehydratedState}>
-						<ProfileLink />
-					</Hydrate>
 				</div>
+				<Hydrate state={dehydratedState}>
+					<ProfileLink />
+				</Hydrate>
 			</div>
 		</header>
 	)

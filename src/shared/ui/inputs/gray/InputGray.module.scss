@@ -11,6 +11,10 @@
 	color: #000;
 	min-width: 200px;
 
+	@media (max-width: 394px) {
+		max-width: 270px;
+	}
+
 	&::placeholder {
 		color: #a1abb9;
 	}

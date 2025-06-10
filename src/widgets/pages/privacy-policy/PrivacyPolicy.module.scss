@@ -1,0 +1,139 @@
+.wrapper {
+	> h3 {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 58px;
+		color: #263141;
+		margin-top: 32px;
+
+		@media (max-width: 660px) {
+			font-size: 20px;
+			line-height: 28px;
+		}
+	}
+
+	.columns {
+		display: flex;
+		gap: 47px;
+		margin-top: 40px;
+
+		@media (max-width: 600px) {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.column__sidebar {
+			background: #f5f7fa;
+			border-radius: 12px;
+			padding: 24px;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			max-width: 424px;
+
+			> h5 {
+				font-family: 'Inter', sans-serif;
+				font-weight: 600;
+				font-size: 16px;
+				line-height: 20px;
+				color: #0f1113;
+				margin-bottom: 14px;
+			}
+
+			> span {
+				font-family: 'Inter', sans-serif;
+				font-weight: 400;
+				font-size: 16px;
+				line-height: 20px;
+				color: #0f1113;
+				padding: 14px 20px;
+				margin-left: -20px;
+				cursor: pointer;
+				border-radius: 8px;
+				transition: 0.3s ease-in-out;
+
+				@media (max-width: 800px) {
+					padding: 7px 10px;
+				}
+
+				&:hover,
+				&.active {
+					background: #fff;
+				}
+			}
+		}
+
+		.column__content {
+			display: flex;
+			flex-direction: column;
+			gap: 36px;
+
+			> h4 {
+				font-family: 'Inter', sans-serif;
+				font-weight: 600;
+				font-size: 24px;
+				line-height: 32px;
+				color: #0f1113;
+			}
+
+			> div {
+				> h5 {
+					font-family: 'Inter', sans-serif;
+					font-weight: 600;
+					font-size: 18px;
+					line-height: 20px;
+					color: #0f1113;
+
+					@media (max-width: 800px) {
+						font-size: 16px;
+					}
+				}
+
+				> p {
+					margin-top: 12px;
+					font-family: 'Inter', sans-serif;
+					font-weight: 400;
+					font-size: 16px;
+					line-height: 24px;
+					color: #0f1113;
+
+					@media (max-width: 800px) {
+						font-size: 16px;
+					}
+				}
+
+				> ul {
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+					margin-top: 12px;
+					margin-left: 20px;
+
+					> li {
+						> b {
+							font-family: 'Inter', sans-serif;
+							font-weight: 600;
+							font-size: 16px;
+							line-height: 24px;
+							color: #0f1113;
+						}
+
+						> span {
+							font-family: 'Inter', sans-serif;
+							font-weight: 400;
+							font-size: 16px;
+							line-height: 24px;
+							color: #0f1113;
+							margin-left: 14px;
+
+							@media (max-width: 800px) {
+								font-size: 16px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -38,7 +38,7 @@ const Footer: FC = () => {
 					<Link href=''>Связаться с нами</Link>
 					<Link href=''>Поддерка пользователей</Link>
 					<Link href=''>FAQ & Руководства</Link>
-					<Link href=''>Политика конфиденциальности</Link>
+					<Link href='/privacy-policy'>Политика конфиденциальности</Link>
 					<Link href=''>Пользовательское соглашение</Link>
 				</div>
 				<div className={styles.column}>
